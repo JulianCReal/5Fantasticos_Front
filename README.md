@@ -1,1 +1,14 @@
 # 5Fantasticos_Front
+
+Mocks iniciales en: https://www.figma.com/files/team/1545877980135630273/project/446795619/5Fantasticos_Mock_Interface?fuid=1545890805473909395
+
+Integrantes:
+- KAROL ESTEFANY ESTUPIÑAN VIANCHA 
+
+- SERGIO ALEJANDRO IDARRAGA TORRES 
+
+- JULIAN DAVID CASTIBLANCO REAL 
+
+- SANTIAGO CARMONA PINEDA 
+
+- JUAN CARLOS LEAL CRUZ 
