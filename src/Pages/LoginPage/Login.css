@@ -1,0 +1,124 @@
+/* Contenedor principal */
+.login-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  font-family: "Arial", sans-serif;
+  overflow: hidden;
+}
+
+/* Panel rojo a la izquierda */
+.login-left {
+  flex: 0.4;
+  background: linear-gradient(180deg, #a50000, #d32f2f);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 50px 50px 0;
+  position: relative;
+  padding: 20px;
+  z-index: 1;
+}
+
+.login-logo {
+  text-align: center;
+  width: 100%;
+}
+
+.login-logo h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: normal;
+}
+
+.login-logo h4 {
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.login-logo-icon {
+  width: 100px;
+  height: 100px;
+  background: url('data:image/svg+xml;utf8,<svg>...</svg>') no-repeat center; /* Replace with actual SVG or image data */
+  margin: 20px auto;
+}
+
+/* Título "SIHRA" mezclado con el panel rojo */
+.login-title {
+  position: absolute;
+  left: 80%;
+  top: 20%;
+  transform: translateY(-50%);
+  background-color: #a50000;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* Panel derecho con el formulario */
+.login-right {
+  flex: 0.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  max-width: 400px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.login-form label {
+  color: #a50000;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.login-form input {
+  padding: 12px;
+  border-radius: 25px;
+  border: 2px solid #ffcccc;
+  background-color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #333;
+}
+
+.login-form input::placeholder {
+  color: #999;
+}
+
+.login-button {
+  background-color: #a50000;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  font-size: 1.1rem;
+  transition: background-color 0.2s;
+}
+
+.login-button:hover {
+  background-color: #8b0000;
+}
