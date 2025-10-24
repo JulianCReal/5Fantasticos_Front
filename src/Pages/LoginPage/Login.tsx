@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   // Estados para los valores de los inputs, pre-rellenados como en la imagen
   const [username, setUsername] = useState("Pepito.perez-p");
   const [password, setPassword] = useState("••••••••");
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Usuario:", username);
     console.log("Contraseña:", password);
+
+    navigate("/dashboard");
     // Nota: Se evita el uso de alert() por buenas prácticas en React.
   };
 
