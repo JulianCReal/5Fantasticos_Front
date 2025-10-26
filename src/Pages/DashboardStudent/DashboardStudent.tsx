@@ -1,5 +1,6 @@
 import React, { JSX, useState } from "react";
 import "./Dashboard.css";
+import ProfileSidebar from "../../Components/SideBarProfile/ProfileSideBar";"/Components/SideBarProfile/ProfileSidebar"
 
 interface ModuleProps {
     iconType: string;
@@ -51,6 +52,12 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2"></path>
             </svg>
         ),
+        "Perfil": (
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        ),
     };
     return iconMap[type] || null;
 };
@@ -75,10 +82,10 @@ const Dashboard: React.FC = () => {
         { iconType: "Calificaciones", label: "Calificaciones" },
         { iconType: "Registros Academicos", label: "Registros Academicos" },
     ];
+    const [showProfileSidebar, setShowProfileSidebar] = useState(false);
 
     return (
         <div className="dashboard-container">
-            {/* El header ahora está fuera del dashboard-content para que no se centre */}
             <header className="dashboard-header">
                 <div className="dashboard-logo-container">
                     ESCUELA COLOMBIANA DE INGENIERÍA
@@ -86,19 +93,29 @@ const Dashboard: React.FC = () => {
                     JULIO GARAVITO
                 </div>
                 
-                {/* Barra de Búsqueda UNIFICADA (Botón a la izquierda) */}
-                <div className="search-bar-container">
-                    <button className="search-button">Buscar</button> 
-                    <input
-                        type="text"
-                        placeholder="Ingresa tu búsqueda"
-                        className="search-input"
-                    />
+                {/* Contenedor Flex para la barra de búsqueda y el ícono de perfil */}
+                <div className="header-right-tools">
+                    {/* Barra de Búsqueda UNIFICADA (Botón a la izquierda) */}
+                    <div className="search-bar-container">
+                        <button className="search-button">Buscar</button> 
+                        <input
+                            type="text"
+                            placeholder="Ingresa tu búsqueda"
+                            className="search-input"
+                        />
+                    </div>
+                    
+                    {/* Nuevo Ícono de Perfil */}
+                    <button className="profile-icon-button" onClick={() => setShowProfileSidebar(true)}>
+                        <div className="profile-icon-svg">
+                            <ModuleIconSVG type="Perfil" />
+                        </div>
+                    </button>
+                    <ProfileSidebar open={showProfileSidebar} onClose={() => setShowProfileSidebar(false)} />
                 </div>
             </header>
 
             <div className="dashboard-content">
-                {/* Contenedor de Módulos Centrales (Ahora sí centrado verticalmente, pero movido hacia arriba) */}
                 <div className="modules-grid">
                     {modules.map((module, index) => (
                         <ModuleCard key={index} iconType={module.iconType} label={module.label} />
@@ -106,7 +123,6 @@ const Dashboard: React.FC = () => {
                 </div>
             </div>
 
-            {/* Formas de onda roja en el footer, con varias curvas y capas suaves */}
             <div className="dashboard-footer-wave-1"></div>
             <div className="dashboard-footer-wave-2"></div>
         </div>
