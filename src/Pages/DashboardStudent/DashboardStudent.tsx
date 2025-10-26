@@ -1,10 +1,12 @@
 import React, { JSX, useState } from "react";
 import "./Dashboard.css";
-import ProfileSidebar from "../../Components/SideBarProfile/ProfileSideBar";"/Components/SideBarProfile/ProfileSidebar"
+import ProfileSidebar from "../../Components/SideBarProfile/ProfileSideBar";import { useNavigate } from "react-router-dom";
+"/Components/SideBarProfile/ProfileSidebar"
 
 interface ModuleProps {
     iconType: string;
     label: string;
+    onClick?: () => void;
 }
 
 const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
@@ -63,8 +65,8 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
 };
 
 // Sub-componente para cada módulo (icono + texto)
-const ModuleCard: React.FC<ModuleProps> = ({ iconType, label }) => (
-    <div className="module-card" onClick={() => console.log(`Navegar a ${label}`)}>
+const ModuleCard: React.FC<ModuleProps> = ({ iconType, label, onClick }) => (
+    <div className="module-card" onClick={onClick} style={{ cursor: "pointer" }}>
         <div className="module-icon">
             <ModuleIconSVG type={iconType} />
         </div>
@@ -74,15 +76,35 @@ const ModuleCard: React.FC<ModuleProps> = ({ iconType, label }) => (
 
 // --- COMPONENTE PRINCIPAL DASHBOARD ---
 const Dashboard: React.FC = () => {
-    // Definición de los módulos
-    const modules = [
-        { iconType: "Mi horario", label: "Mi horario" },
-        { iconType: "Semáforo", label: "Semáforo" },
-        { iconType: "Solicitudes", label: "Solicitudes" }, 
-        { iconType: "Calificaciones", label: "Calificaciones" },
-        { iconType: "Registros Academicos", label: "Registros Academicos" },
-    ];
+    
+    
     const [showProfileSidebar, setShowProfileSidebar] = useState(false);
+
+    const navigate = useNavigate();
+    
+    const handleRequestDashboard = () => {
+        navigate("/requestDashboard");
+    };
+    const handleHorario = ()=>{
+        navigate("/scheduleDisplay")
+    }
+    const handleSemaforo = ()=>{
+        navigate("/")
+    }
+    const handleCalificaciones = ()=>{
+        navigate("/")
+    }
+    const handleRegistros = ()=>{
+        navigate("/")
+    }
+
+    const modules: ModuleProps[] = [
+        { iconType: "Mi horario", label: "Mi horario", onClick: handleHorario },
+        { iconType: "Semáforo", label: "Semáforo", onClick: handleSemaforo },
+        { iconType: "Solicitudes", label: "Solicitudes", onClick: handleRequestDashboard },
+        { iconType: "Calificaciones", label: "Calificaciones", onClick: handleCalificaciones },
+        { iconType: "Registros Academicos", label: "Registros Academicos", onClick: handleRegistros },
+    ];
 
     return (
         <div className="dashboard-container">
@@ -118,7 +140,7 @@ const Dashboard: React.FC = () => {
             <div className="dashboard-content">
                 <div className="modules-grid">
                     {modules.map((module, index) => (
-                        <ModuleCard key={index} iconType={module.iconType} label={module.label} />
+                        <ModuleCard key={index} iconType={module.iconType} label={module.label} onClick={module.onClick}/>
                     ))}
                 </div>
             </div>
