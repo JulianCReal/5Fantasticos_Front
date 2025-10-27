@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import "./RequestChange.css";
 import { useNavigate } from "react-router-dom";
 import ProfileSidebar from "../../../Components/SideBarProfile/ProfileSideBar";
+import axios from "axios";
 
 const showMessage = (message: string) => console.log(`[MESSAGE]: ${message}`);
 
@@ -29,39 +30,52 @@ interface RequestState {
 }
 
 
-const API_BASE_URL = "http://localhost:8080/api/groups"; // Ajusta el dominio si usas despliegue
-
-const fetchClassDetails = async (classId: string): Promise<ClassDetail | null> => {
-    if (!classId) return null;
+const fetchClassDetails = async (groupId: string): Promise<ClassDetail | null> => {
+    if (!groupId) return null;
 
     try {
-        const response = await fetch(`${API_BASE_URL}/${classId}`);
+        
+        // Petición directa al endpoint que devuelve un grupo por ID
+        const token = sessionStorage.getItem('token');
+        
+        // Configurar headers con el token
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        };
+        
+        const response = await axios.get(
+            `http://localhost:8080/api/groups/${groupId}`,
+            config
+        );
+        
+        const data = response.data;
 
-        if (!response.ok) {
-            console.warn(`Grupo ${classId} no encontrado (${response.status})`);
+        if (!data) {
+            console.warn(`Grupo ${groupId} no encontrado`);
             return null;
         }
 
-        const data = await response.json();
-
-        // Mapea la respuesta del backend (GroupResponseDTO) a tu interfaz ClassDetail
+        // Mapea la respuesta del backend (Group) a ClassDetail
         const mapped: ClassDetail = {
             id: data.id,
-            name: data.subject?.name
-                ? `${data.subject.name} - Grupo ${data.groupNumber || ''}`
-                : `Grupo ${data.groupNumber || ''}`,
-            professor: data.teacher?.name || "Sin profesor asignado",
+            name: data.subjectId ? `Materia ${data.subjectId} - Grupo ${data.number}` : `Grupo ${data.number}`,
+            professor: data.teacher?.name ? `${data.teacher.name} ${data.teacher.lastName}` : "Sin profesor asignado",
             schedule: data.sessions?.length
                 ? data.sessions.map(
-                    (s: any) =>
-                        `${s.day} / ${s.startTime} - ${s.endTime}${s.room ? ` (${s.room})` : ""}`
+                    (s: any) => `${s.day} / ${s.startTime} - ${s.endTime}${s.classroom ? ` (${s.classroom})` : ""}`
                 )
                 : ["Sin horario asignado"],
         };
 
         return mapped;
-    } catch (error) {
-        console.error("Error al obtener detalles del grupo:", error);
+    } catch (error: any) {
+        if (axios.isAxiosError(error) && error.response?.status === 404) {
+            console.warn(`Grupo ${groupId} no encontrado`);
+        } else {
+            console.error("Error al obtener detalles del grupo:", error);
+        }
         return null;
     }
 };
@@ -243,7 +257,7 @@ const RequestChange: React.FC = () => {
     };
     
     // Handler para el envío del formulario
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
         if (!state.currentClassDetails || !state.newClassDetails || !state.motive) {
@@ -255,18 +269,71 @@ const RequestChange: React.FC = () => {
             showMessage("El código de la clase actual y la clase nueva deben ser diferentes.");
             return;
         }
-        
-        const requestData = {
-            currentClassId: state.currentClassId,
-            newClassId: state.newClassId,
-            motive: state.motive,
-            timestamp: new Date().toISOString(),
-        };
-        
-        console.log("Enviando Solicitud de Cambio:", requestData);
-        // Aquí se haría la llamada real al backend
-        showMessage("¡Solicitud de cambio enviada con éxito! Revisa la consola para ver el payload.");
+
+        try {
+            const token = sessionStorage.getItem('token');
+            const userProfileString = sessionStorage.getItem('userProfile');
+            
+            if (!userProfileString) {
+                showMessage("Error: No se encontró el perfil del usuario. Por favor, inicie sesión nuevamente.");
+                return;
+            }
+            
+            const userProfile = JSON.parse(userProfileString);
+            const userId = userProfile.id; // ⭐ Usar 'id' directamente desde el perfil
+            
+            console.log("🔍 userProfile:", userProfile);
+            console.log("✅ userId:", userId);
+            
+            if (!userId) {
+                showMessage("Error: No se encontró el ID del usuario.");
+                return;
+            }
+
+            const config = {
+                headers: { 'Authorization': `Bearer ${token}` }
+            };
+
+            console.log("🔄 Obteniendo información completa de los grupos...");
+
+            const [sourceGroupResponse, destinationGroupResponse] = await Promise.all([
+                axios.get(`http://localhost:8080/api/groups/${state.currentClassId}`, config),
+                axios.get(`http://localhost:8080/api/groups/${state.newClassId}`, config)
+            ]);
+
+            const requestDTO = {
+                userId: userId, // ⭐ userId extraído del perfil guardado
+                requestType: "CHANGE_GROUP",
+                details: {
+                    sourceGroup: sourceGroupResponse.data,
+                    destinationGroup: destinationGroupResponse.data
+                },
+                observations: state.motive,
+                deanOffice: sourceGroupResponse.data.subjectId
+            };
+
+            console.log("📤 Enviando requestDTO:", requestDTO);
+
+            const response = await axios.post(
+                'http://localhost:8080/api/requests',
+                requestDTO,
+                config
+            );
+
+            console.log("✅ Respuesta del servidor:", response.data);
+            showMessage("¡Solicitud enviada exitosamente!");
+            
+            setTimeout(() => navigate("/requestDashboard"), 2000);
+
+        } catch (error: any) {
+            console.error("❌ Error:", error);
+            console.error("❌ Detalles del error:", error.response?.data);
+            const errorMsg = error.response?.data?.message || "Error al enviar la solicitud";
+            showMessage(`Error: ${errorMsg}`);
+        }
     };
+
+
 
     return (
         <div className="request-page-container">
