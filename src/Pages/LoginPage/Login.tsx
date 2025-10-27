@@ -24,6 +24,7 @@ const Login: React.FC = () => {
       
       sessionStorage.setItem('token', response.data.data.token);
       sessionStorage.setItem('userProfile', JSON.stringify(response.data.data.profile));
+      sessionStorage.setItem('userRole', response.data.data.profile.role);
       navigate("/dashboard");
 
     
