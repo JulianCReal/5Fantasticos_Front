@@ -22,29 +22,63 @@ const Login: React.FC = () => {
         password
       });
       
-      sessionStorage.setItem('token', response.data.data.token);
-      sessionStorage.setItem('userProfile', JSON.stringify(response.data.data.profile));
-      sessionStorage.setItem('userRole', response.data.data.role)
+      console.log("Response completo:", response.data);
       
-      console.log("Cosito:", response.data)
-      console.log("Rol:", response.data.data.role);
-      console.log("Session role:", sessionStorage.getItem('userRole'));
-      switch (sessionStorage.getItem('userRole')) {
+      // Validar estructura de respuesta
+      if (!response.data.data || !response.data.data.token || !response.data.data.role) {
+        console.error("Estructura de respuesta inválida:", response.data);
+        setPopup({
+          title: "Error de respuesta del servidor",
+          message: "La respuesta del servidor no tiene el formato esperado.",
+        });
+        return;
+      }
+      
+      sessionStorage.setItem('token', response.data.data.token);
+      sessionStorage.setItem('userProfile', JSON.stringify(response.data.data.profile || {}));
+      sessionStorage.setItem('userRole', response.data.data.role);
+      
+      console.log("Rol recibido del backend:", response.data.data.role);
+      console.log("Tipo de rol:", typeof response.data.data.role);
+      console.log("Rol guardado en sessionStorage:", sessionStorage.getItem('userRole'));
+      
+      const userRole = response.data.data.role.toString().toUpperCase().trim();
+      
+      console.log("Evaluando rol:", userRole);
+      console.log("Comparaciones:");
+      console.log("- Es STUDENT?", userRole === 'STUDENT');
+      console.log("- Es DEAN?", userRole === 'DEAN');
+      console.log("- Es TEACHER?", userRole === 'TEACHER');
+      console.log("- Es PROFESSOR?", userRole === 'PROFESSOR');
+      console.log("- Es ADMIN?", userRole === 'ADMIN');
+      
+      switch (userRole) {
         case 'STUDENT':
+          console.log("Navegando a dashboardStudent");
           navigate("/dashboardStudent");
           break;
         case 'DEAN':
+          console.log("Navegando a dashboardDean");
           navigate("/dashboardDean");
           break;
         case 'TEACHER':
-          navigate("/");
+          console.log("Navegando a dashboardTeacher");
+          navigate("/dashboardTeacher");
+          break;
+        case 'PROFESSOR':
+          console.log("Navegando a dashboardTeacher (PROFESSOR alias)");
+          navigate("/dashboardTeacher");
           break;
         case 'ADMIN':
+          console.log("Navegando a admin (home)");
           navigate("/");
           break;
         default:
-          console.warn("Rol desconocido:", sessionStorage.getItem('userRole'));
-          navigate("/"); // opcional: ruta por defecto
+          console.warn("Rol desconocido:", userRole);
+          setPopup({
+            title: "Rol no reconocido",
+            message: `El rol "${userRole}" no está configurado en la aplicación. Roles válidos: STUDENT, DEAN, TEACHER, PROFESSOR, ADMIN`,
+          });
           break;
       }
 

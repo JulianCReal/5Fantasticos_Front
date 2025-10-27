@@ -9,6 +9,11 @@ import RequestJoin from "./Pages/RequestPages/RequestJoin/RequestJoin";
 import RequestLeave from "./Pages/RequestPages/RequestLeave/RequestLeave";
 import DashboardStudent from "./Pages/DashboardStudent/DashboardStudent";
 import DashboardDean from "./Pages/DashboardDean/DashboardDean";
+import DashboardTeacher from "./Pages/DashboardTeacher/DashboardTeacher";
+import TeacherInfo from "./Pages/TeacherInfo/TeacherInfo";
+import TeacherGroups from "./Pages/TeacherGroups/TeacherGroups";
+import TeacherSchedules from "./Pages/TeacherSchedules/TeacherSchedules";
+
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -17,7 +22,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/" element={<Login />} />
         <Route path="/dashboardStudent" element={<DashboardStudent />} />
         <Route path="/dashboardDean" element={<DashboardDean />} />
+        <Route path="/dashboardTeacher" element={<DashboardTeacher />} />
 
+        <Route path="/teacherInfo" element={<TeacherInfo />} />
+        <Route path="/teacherGroups" element={<TeacherGroups />} />
+        <Route path="/teacherSchedules" element={<TeacherSchedules />} />
 
         <Route path="/requestDashboard" element={<RequestDashboard />} />
         <Route path="/scheduleDisplay" element={<ScheduleDisplay />} />
