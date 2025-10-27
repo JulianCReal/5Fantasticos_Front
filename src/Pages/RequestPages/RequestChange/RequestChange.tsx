@@ -280,7 +280,7 @@ const RequestChange: React.FC = () => {
             }
             
             const userProfile = JSON.parse(userProfileString);
-            const userId = userProfile.id; // ⭐ Usar 'id' directamente desde el perfil
+            const userId = userProfile.studentId || userProfile.id || userProfile.profileId;
             
             console.log("🔍 userProfile:", userProfile);
             console.log("✅ userId:", userId);

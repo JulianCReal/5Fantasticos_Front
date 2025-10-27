@@ -37,7 +37,7 @@ const fetchClassDetails = async (groupId: string): Promise<ClassDetail | null> =
         };
         
         const response = await axios.get(
-            `http://localhost:8080/api/groups/${groupId}`,
+            `http://localhost:8083/api/groups/${groupId}`,
             config
         );
         
@@ -249,7 +249,7 @@ const RequestLeave: React.FC = () => {
             }
             
             const userProfile = JSON.parse(userProfileString);
-            const userId = userProfile.id;
+            const userId = userProfile.studentId || userProfile.id || userProfile.profileId;
             
             console.log("🔍 userProfile:", userProfile);
             console.log("✅ userId:", userId);
@@ -267,7 +267,7 @@ const RequestLeave: React.FC = () => {
 
             // Obtener el grupo completo (solo sourceGroup para LEAVE)
             const sourceGroupResponse = await axios.get(
-                `http://localhost:8080/api/groups/${state.classId}`,
+                `http://localhost:8083/api/groups/${state.classId}`,
                 config
             );
 
@@ -284,7 +284,7 @@ const RequestLeave: React.FC = () => {
             console.log("📤 Enviando requestDTO:", requestDTO);
 
             const response = await axios.post(
-                'http://localhost:8080/api/requests',
+                'http://localhost:8083/api/requests',
                 requestDTO,
                 config
             );
