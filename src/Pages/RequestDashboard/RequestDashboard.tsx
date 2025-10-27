@@ -92,7 +92,7 @@ const RequestDashboard: React.FC<RequestDashboardProps> = () => {
     const navigate = useNavigate();
     
     const handleBack = () => {
-        navigate("/dashboard");
+        navigate("/dashboardStudent");
     };
     const groupChange = ()=>{
         navigate("/groupChangeRequest")
