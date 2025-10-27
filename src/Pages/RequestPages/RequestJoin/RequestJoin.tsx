@@ -52,7 +52,7 @@ const fetchClassDetails = async (groupId: string): Promise<ClassDetail | null> =
         const mapped: ClassDetail = {
             id: data.id,
             name: data.subjectId ? `Materia ${data.subjectId} - Grupo ${data.number}` : `Grupo ${data.number}`,
-            professor: data.teacher?.name ? `${data.teacher.name} ${data.teacher.lastName}` : "Sin profesor asignado",
+            professor: data.teacherName && data.teacherLastName ? `${data.teacherName} ${data.teacherLastName}`: data.teacherName || "Sin profesor asignado",
             schedule: data.sessions?.length
                 ? data.sessions.map(
                     (s: any) => `${s.day} / ${s.startTime} - ${s.endTime}${s.classroom ? ` (${s.classroom})` : ""}`
@@ -250,6 +250,7 @@ const RequestJoin: React.FC = () => {
             
             const userProfile = JSON.parse(userProfileString);
             const userId = userProfile.studentId || userProfile.id || userProfile.profileId;
+            const faculty = userProfile.career || userProfile.faculty;
             
             console.log("🔍 userProfile:", userProfile);
             console.log("✅ userId:", userId);
@@ -263,8 +264,14 @@ const RequestJoin: React.FC = () => {
                 headers: { 'Authorization': `Bearer ${token}` }
             };
 
-            console.log("🔄 Obteniendo información completa del grupo...");
+            const responseCoso = await axios.get(
+                `http://localhost:8083/api/dean-offices/faculty/${faculty}`,
+                config
+            );
+            const deanOffice = responseCoso.data.data.faculty;
+            console.log("Facultada?", responseCoso.data);
 
+            console.log("🔄 Obteniendo información completa del grupo...");
             // Obtener el grupo completo (solo destinationGroup para JOIN)
             const destinationGroupResponse = await axios.get(
                 `http://localhost:8083/api/groups/${state.classId}`,
@@ -278,7 +285,7 @@ const RequestJoin: React.FC = () => {
                     destinationGroup: destinationGroupResponse.data // ⭐ Solo destinationGroup
                 },
                 observations: state.motive,
-                deanOffice: destinationGroupResponse.data.subjectId // Ajusta según tu lógica
+                deanOffice: deanOffice// Ajusta según tu lógica
             };
 
             console.log("📤 Enviando requestDTO:", requestDTO);
