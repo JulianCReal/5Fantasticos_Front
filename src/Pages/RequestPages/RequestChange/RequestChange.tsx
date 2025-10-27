@@ -46,7 +46,7 @@ const fetchClassDetails = async (groupId: string): Promise<ClassDetail | null> =
         };
         
         const response = await axios.get(
-            `http://localhost:8080/api/groups/${groupId}`,
+            `http://localhost:8083/api/groups/${groupId}`,
             config
         );
         
@@ -297,8 +297,8 @@ const RequestChange: React.FC = () => {
             console.log("🔄 Obteniendo información completa de los grupos...");
 
             const [sourceGroupResponse, destinationGroupResponse] = await Promise.all([
-                axios.get(`http://localhost:8080/api/groups/${state.currentClassId}`, config),
-                axios.get(`http://localhost:8080/api/groups/${state.newClassId}`, config)
+                axios.get(`http://localhost:8083/api/groups/${state.currentClassId}`, config),
+                axios.get(`http://localhost:8083/api/groups/${state.newClassId}`, config)
             ]);
 
             const requestDTO = {
@@ -315,7 +315,7 @@ const RequestChange: React.FC = () => {
             console.log("📤 Enviando requestDTO:", requestDTO);
 
             const response = await axios.post(
-                'http://localhost:8080/api/requests',
+                'http://localhost:8083/api/requests',
                 requestDTO,
                 config
             );
