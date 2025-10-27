@@ -23,6 +23,7 @@ const Login: React.FC = () => {
       });
       
       sessionStorage.setItem('token', response.data.data.token);
+      sessionStorage.setItem('userProfile', JSON.stringify(response.data.data.profile));
       navigate("/dashboard");
     } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
