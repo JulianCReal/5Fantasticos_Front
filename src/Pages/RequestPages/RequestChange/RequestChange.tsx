@@ -51,6 +51,7 @@ const fetchClassDetails = async (groupId: string): Promise<ClassDetail | null> =
         );
         
         const data = response.data;
+        console.log("Grupo recibido:", data);
 
         if (!data) {
             console.warn(`Grupo ${groupId} no encontrado`);
@@ -61,7 +62,7 @@ const fetchClassDetails = async (groupId: string): Promise<ClassDetail | null> =
         const mapped: ClassDetail = {
             id: data.id,
             name: data.subjectId ? `Materia ${data.subjectId} - Grupo ${data.number}` : `Grupo ${data.number}`,
-            professor: data.teacher?.name ? `${data.teacher.name} ${data.teacher.lastName}` : "Sin profesor asignado",
+            professor: data.teacherName && data.teacherLastName ? `${data.teacherName} ${data.teacherLastName}`: data.teacherName || "Sin profesor asignado",
             schedule: data.sessions?.length
                 ? data.sessions.map(
                     (s: any) => `${s.day} / ${s.startTime} - ${s.endTime}${s.classroom ? ` (${s.classroom})` : ""}`
@@ -281,7 +282,9 @@ const RequestChange: React.FC = () => {
             
             const userProfile = JSON.parse(userProfileString);
             const userId = userProfile.studentId || userProfile.id || userProfile.profileId;
-            
+            const faculty = userProfile.career || userProfile.faculty;
+
+                        
             console.log("🔍 userProfile:", userProfile);
             console.log("✅ userId:", userId);
             
@@ -294,12 +297,19 @@ const RequestChange: React.FC = () => {
                 headers: { 'Authorization': `Bearer ${token}` }
             };
 
-            console.log("🔄 Obteniendo información completa de los grupos...");
+            const responseCoso = await axios.get(
+                `http://localhost:8083/api/dean-offices/faculty/${faculty}`,
+                config
+            );
+            const deanOffice = responseCoso.data.data.faculty;
+            console.log("Facultada?", responseCoso.data);
 
+            console.log("🔄 Obteniendo información completa de los grupos...");
             const [sourceGroupResponse, destinationGroupResponse] = await Promise.all([
                 axios.get(`http://localhost:8083/api/groups/${state.currentClassId}`, config),
                 axios.get(`http://localhost:8083/api/groups/${state.newClassId}`, config)
             ]);
+
 
             const requestDTO = {
                 userId: userId, // ⭐ userId extraído del perfil guardado
@@ -309,7 +319,7 @@ const RequestChange: React.FC = () => {
                     destinationGroup: destinationGroupResponse.data
                 },
                 observations: state.motive,
-                deanOffice: sourceGroupResponse.data.subjectId
+                deanOffice: deanOffice
             };
 
             console.log("📤 Enviando requestDTO:", requestDTO);
