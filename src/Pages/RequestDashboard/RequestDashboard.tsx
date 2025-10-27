@@ -62,19 +62,16 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
     return iconMap[type] || null;
 };
 
-// =========================================================
-// 3. SUB-COMPONENTE: RequestItem
-// =========================================================
-
 interface RequestItemProps {
     iconType: string;
     label: string;
     position: 'left' | 'right'; 
+    onClick?: () => void;
 }
 
-const RequestItem: React.FC<RequestItemProps> = ({ iconType, label, position }) => {
+const RequestItem: React.FC<RequestItemProps> = ({ iconType, label, position, onClick}) => {
     return (
-        <div className={`request-item request-item-${position}`}>
+        <div className={`request-item request-item-${position}`} onClick={onClick} style={{ cursor: "pointer" }}>
             <div className="request-icon-container">
                 <ModuleIconSVG type={iconType} />
             </div>
@@ -86,31 +83,38 @@ const RequestItem: React.FC<RequestItemProps> = ({ iconType, label, position }) 
 };
 
 
-// =========================================================
-// 4. COMPONENTE PRINCIPAL: RequestDashboard
-// =========================================================
 
 interface RequestDashboardProps {
     onBack?: () => void; // Hacemos esta prop opcional para el componente aislado
 }
 
-const RequestDashboard: React.FC<RequestDashboardProps> = ({ onBack = () => {} }) => {
-    const requestCategories = [
-        { iconType: "Cambio de grupo", label: "Cambio de grupo" },
-        { iconType: "Dar de baja una clase", label: "Dar de baja una clase" },
-        { iconType: "Añadir una clase", label: "Añadir una clase" },
-        { iconType: "Cancelar una materia", label: "Cancelar una materia" },
-        { iconType: "Certificado académico", label: "Certificado académico" },
-        { iconType: "Certificado financiero", label: "Certificado financiero" },
-    ];
-
-    const leftColumn = requestCategories.slice(0, 3).map(req => ({...req, position: 'left' as const}));
-    const rightColumn = requestCategories.slice(3, 6).map(req => ({...req, position: 'right' as const}));
+const RequestDashboard: React.FC<RequestDashboardProps> = () => {
     const navigate = useNavigate();
     
     const handleBack = () => {
         navigate("/dashboard");
     };
+    const groupChange = ()=>{
+        navigate("/groupChangeRequest")
+    }
+    const groupJoin = ()=>{
+        navigate("/groupJoinRequest")
+    }
+    const groupLeave = ()=>{
+        navigate("/groupLeaveRequest")
+    }
+
+    const requestCategories = [
+        { iconType: "Cambio de grupo", label: "Cambio de grupo", onClick: groupChange },
+        { iconType: "Dar de baja una clase", label: "Dar de baja una clase", onClick: groupLeave},
+        { iconType: "Añadir una clase", label: "Añadir una clase", onClick: groupJoin},
+        { iconType: "Cancelar una materia", label: "Cancelar una materia", onClick: groupChange },
+        { iconType: "Certificado académico", label: "Certificado académico", onClick: groupChange },
+        { iconType: "Certificado financiero", label: "Certificado financiero", onClick: groupChange },
+    ];
+
+    const leftColumn = requestCategories.slice(0, 3).map(req => ({...req, position: 'left' as const}));
+    const rightColumn = requestCategories.slice(3, 6).map(req => ({...req, position: 'right' as const}));
 
     const [showProfileSidebar, setShowProfileSidebar] = useState(false);
 
