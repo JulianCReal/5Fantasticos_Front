@@ -115,6 +115,8 @@ const DashboardStudent: React.FC = () => {
                 }
             });
             
+            console.log('Response al consultar horario:', response.data);
+            
             navigate("/scheduleDisplay", { state: { scheduleData: response.data } });
         } catch (error) {
             console.error('Error obteniendo horario:', error);

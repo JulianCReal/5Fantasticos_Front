@@ -1,4 +1,4 @@
-/* Reseteo básico y fuente principal */
+/* Reset y fuente principal */
 body, html, #root {
     margin: 0;
     padding: 0;
@@ -6,20 +6,21 @@ body, html, #root {
     width: 100%;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background-color: #f0f2f5;
-    overflow: hidden; 
+    overflow: auto;
+
 }
 
-/* --- ESTILOS GENERALES Y DE CABECERA --- */
-   
+/* --- CONTENEDOR GENERAL --- */
 .schedule-page-container {
     width: 100%;
-    min-height: 100vh; /* Cambiado a min-height para que el scroll funcione */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #f0f2f5;
-    overflow-y: auto; 
+    overflow-y: auto;
 }
 
+/* --- HEADER --- */
 .schedule-page-header {
     display: flex;
     align-items: center;
@@ -27,17 +28,16 @@ body, html, #root {
     padding: 30px 40px;
     max-width: 1200px;
     width: 100%;
-    box-sizing: border-box;
     margin: 0 auto;
-    background-color: white; 
+    background-color: white;
     border-bottom: 2px solid #8b0000;
+    box-sizing: border-box;
 }
 
 .back-button {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
     width: 35px;
     height: 35px;
     display: flex;
@@ -55,10 +55,9 @@ body, html, #root {
     font-size: 2.2rem;
     font-weight: 800;
     color: #8b0000;
-    flex-grow: 1; 
+    flex-grow: 1;
+    margin: 0 20px;
     text-align: left;
-    margin-left: 20px;
-    margin-right: 20px;
 }
 
 .profile-icon-button {
@@ -68,9 +67,7 @@ body, html, #root {
     width: 50px;
     height: 50px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 0;
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -82,175 +79,137 @@ body, html, #root {
 }
 
 .profile-icon-svg {
-    color: #8b0000; 
     width: 28px;
     height: 28px;
+    color: #8b0000;
 }
 
-/* --- ESTILOS DE LA TABLA DE HORARIO --- */
+/* --- TABLA DE HORARIOS --- */
 
 .schedule-content-wrapper {
-    width: 98vw;
+    width: 80vw;
     margin: 10px auto;
-    padding: 0 10px; 
+    padding: 0 10px;
     box-sizing: border-box;
     flex-grow: 1;
-    height: calc(100vh - 150px);
-    overflow-y: auto;
+
+    height: calc(100vh - 150px); /* asegura espacio de scroll */
     overflow-x: auto;
+    overflow-y: auto;
 }
+
 
 .schedule-table-container {
     display: grid;
-    /* Define 7 columnas: 1 para las horas + 6 para los días (Lun-Sab) */
     grid-template-columns: 140px repeat(6, 1fr);
-    /* Define filas: 1 cabecera + 12 franjas horarias */
-    grid-template-rows: 70px repeat(12, 80px);
+    grid-template-rows: 70px repeat(8, 90px);
     background-color: white;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    overflow: hidden;
     min-width: 900px;
-    width: 100%;
+    border: 2px solid #8b0000;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* Celdas del header */
 .schedule-header-cell {
-    padding: 20px 10px;
-    font-weight: 600;
-    color: white;
-    background-color: #8b0000;
-    text-align: center;
-    border-right: 1px solid rgba(255, 255, 255, 0.3);
-    border-bottom: 2px solid #6d0000;
-    font-size: 1rem;
-    user-select: none;
-    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-/* Esquina superior izquierda (celda vacía) */
-.schedule-header-cell:first-child {
     background-color: #8b0000;
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 600;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 2px solid #6d0000;
+    user-select: none;
 }
 
+/* Celdas de horas */
 .time-label-cell {
     background-color: #f8f8f8;
     border-right: 2px solid #8b0000;
     border-bottom: 1px solid #ddd;
-    padding: 15px 8px;
-    text-align: center;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #333;
     display: flex;
     align-items: center;
     justify-content: center;
-    user-select: none;
-    height: 80px;
 }
 
+/* Celdas del horario */
 .schedule-day-cell {
     position: relative;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
     background-color: #fafafa;
-    height: 80px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd; /* Lineas horizontales seguras */
 }
 
-/* Última columna (Sábado) con borde derecho */
+/* Último día con borde fuerte */
 .schedule-day-cell:nth-child(7n) {
     border-right: 2px solid #8b0000;
 }
 
-/* Última fila con borde inferior */
+/* Última fila reforzada */
 .schedule-table-container > div:nth-last-child(-n+7) {
     border-bottom: 2px solid #8b0000 !important;
 }
 
-/* Bordes externos del contenedor */
-.schedule-table-container {
-    border: 2px solid #8b0000;
-}
-
-/* Estilo para las celdas de clase dinámicas */
+/* BLOQUES DE CLASE */
 .class-block {
     position: absolute;
-    width: calc(100% - 4px); /* Ancho completo menos padding/margin */
+    width: calc(100% - 4px);
     left: 2px;
-    z-index: 10;
+    padding: 8px 10px;
     background-color: #8b0000;
     color: white;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 8px 10px;
-    box-sizing: border-box;
-    text-align: center;
     cursor: pointer;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.1s, box-shadow 0.1s;
-    overflow: hidden;
 }
 
 .class-block:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 .class-code {
     font-size: 1.1rem;
     font-weight: 700;
-    line-height: 1.2;
 }
 
 .class-time {
     font-size: 0.75rem;
-    font-weight: 300;
     opacity: 0.9;
-    line-height: 1.2;
 }
 
-
-/* --- SECCIÓN DE PLANIFICACIÓN (Ajustes solicitados) --- */
-
+/* --- SECCIÓN DE PLANIFICACIÓN --- */
 .planning-footer {
-    /* Eliminamos position: sticky, width: 100% y bottom: 0 */
     background: linear-gradient(to right, #8b0000, #c40000);
     color: white;
     padding: 20px 40px;
-    
-    /* Centramos el footer y le damos márgenes */
     max-width: 1200px;
-    width: calc(100% - 80px); /* 100% menos los 40px de padding */
-    margin: 40px auto 40px auto; /* 40px margen superior, automático lateral para centrar, 40px margen inferior */
-    
-    box-sizing: border-box;
-    border-radius: 12px; /* Redondeado para el efecto de tarjeta */
+    width: calc(100% - 80px);
+    margin: 40px auto;
+    border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
 }
 
 .planning-content {
-    /* Quitamos el max-width porque ya lo maneja el padre */
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .planning-text h3 {
+    margin: 0;
     font-size: 1.8rem;
     font-weight: 800;
-    margin: 0;
-    line-height: 1.2;
 }
 
 .planning-text small {
-    display: block;
     font-size: 0.8rem;
-    font-weight: 300;
-    margin-bottom: 5px;
-    color: rgba(255, 255, 255, 0.8);
+    opacity: 0.8;
 }
 
 .go-button {
@@ -259,58 +218,29 @@ body, html, #root {
     border: none;
     padding: 10px 40px;
     border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+    font-weight: 600;
+    transition: background-color 0.2s;
 }
 
 .go-button:hover {
     background-color: #333;
-    transform: translateY(-1px);
 }
 
-/* Media Query para responsividad en móviles */
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
+
     .schedule-page-header {
         padding: 20px;
     }
-    
+
     .schedule-page-title {
         font-size: 1.6rem;
-        margin-left: 10px;
-    }
-    
-    .schedule-content-wrapper {
-        padding: 0 10px;
-        margin: 20px auto;
     }
 
     .schedule-table-container {
-        /* Permite que la tabla se desborde horizontalmente */
-        display: block;
+        min-width: 650px; 
         overflow-x: auto;
-        white-space: nowrap; 
-    }
-
-    /* Redefinimos el grid para que sea una tabla deslizable */
-    .schedule-table-container > * {
-        display: inline-grid;
-        grid-template-columns: minmax(100px, 1fr) repeat(6, 150px); /* Días con ancho fijo en móvil */
-    }
-    
-    .schedule-header-cell {
-        padding: 10px 5px;
-        font-size: 0.8rem;
-    }
-    
-    .time-label-cell {
-        font-size: 0.7rem;
-        padding: 8px 3px;
-    }
-
-    .class-block {
-        padding: 6px;
     }
 
     .class-code {
@@ -321,21 +251,16 @@ body, html, #root {
         font-size: 0.65rem;
     }
 
-    /* Ajustes móviles para el footer */
     .planning-footer {
         padding: 15px 20px;
-        width: calc(100% - 40px); /* 100% menos 20px de padding a cada lado */
-        margin: 20px auto 20px auto; /* Reducimos el margen vertical en móvil */
+        width: calc(100% - 40px);
+        margin: 20px auto;
     }
 
     .planning-content {
         flex-direction: column;
-        text-align: center;
         gap: 10px;
-    }
-
-    .planning-text h3 {
-        font-size: 1.4rem;
+        text-align: center;
     }
 
     .go-button {

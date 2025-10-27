@@ -26,26 +26,23 @@ const initialSchedule: ScheduleItem[] = [
 
 // Definición de las franjas horarias y días (7am a 7pm)
 const timeSlots = [
-    { label: "7:00 - 8:00 am", start: "07:00", end: "08:00" },
-    { label: "8:00 - 9:00 am", start: "08:00", end: "09:00" },
-    { label: "9:00 - 10:00 am", start: "09:00", end: "10:00" },
-    { label: "10:00 - 11:00 am", start: "10:00", end: "11:00" },
-    { label: "11:00 - 12:00 pm", start: "11:00", end: "12:00" },
-    { label: "12:00 - 1:00 pm", start: "12:00", end: "13:00" },
-    { label: "1:00 - 2:00 pm", start: "13:00", end: "14:00" },
-    { label: "2:00 - 3:00 pm", start: "14:00", end: "15:00" },
-    { label: "3:00 - 4:00 pm", start: "15:00", end: "16:00" },
-    { label: "4:00 - 5:00 pm", start: "16:00", end: "17:00" },
-    { label: "5:00 - 6:00 pm", start: "17:00", end: "18:00" },
-    { label: "6:00 - 7:00 pm", start: "18:00", end: "19:00" },
+    { label: "7:00 - 8:30 am", start: "07:00", end: "08:30" },
+    { label: "8:30 - 10:00 am", start: "08:30", end: "10:00" },
+    { label: "10:00 - 11:30 am", start: "10:00", end: "11:30" },
+    { label: "11:30 - 1:00 pm", start: "11:30", end: "13:00" },
+    { label: "1:00 - 2:30 pm", start: "13:00", end: "14:30" },
+    { label: "2:30 - 4:00 pm", start: "14:30", end: "16:00" },
+    { label: "4:00 - 5:30 pm", start: "16:00", end: "17:30" },
+    { label: "5:30 - 7:00 pm", start: "17:30", end: "19:00" }
 ];
+
 
 const days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
 
 // La altura base de cada celda de tiempo es fija (ej: 60px). 
 // Esto permite calcular la altura de un bloque de clase dinámicamente.
-const BASE_CELL_HEIGHT = 60; // Altura en píxeles para una hora (ej. 60 minutos)
-const MINUTE_TO_PX = BASE_CELL_HEIGHT / 60; // 1px por minuto (si la franja es de 60 minutos)
+const BASE_CELL_HEIGHT = 90; // 1 hora y media = 90px
+const MINUTE_TO_PX = BASE_CELL_HEIGHT / 90; // 1px por minuto
 
 // =========================================================
 // 4. COMPONENTE DE ICONOS
@@ -91,16 +88,17 @@ const Horario: React.FC<HorarioProps> = ({ onBack = () => {} }) => {
         }
         
         const convertTime = (time: string) => {
-            const [timePart, period] = time.split(' ');
-            const [hours, minutes] = timePart.split(':');
-            let hour24 = parseInt(hours);
+            if (!time) return "00:00";
             
-            if (period === 'pm' && hour24 !== 12) hour24 += 12;
-            if (period === 'am' && hour24 === 12) hour24 = 0;
+            // Si ya viene en formato HH:MM
+            if (/^\d{1,2}:\d{2}$/.test(time)) {
+                const [hours, minutes] = time.split(':').map(Number);
+                return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+            }
             
-            return `${hour24.toString().padStart(2, '0')}:${minutes}`;
+            return time;
         };
-        
+
         return backendData.classes.map((item: any, index: number) => ({
             id: index,
             code: item.subjectCode || 'N/A',
@@ -192,7 +190,7 @@ const Horario: React.FC<HorarioProps> = ({ onBack = () => {} }) => {
 
     const navigate = useNavigate();
     const handleBack = () => {
-            navigate("/dashboard");
+            navigate("/dashboardStudent");
     };
     
     const [showProfileSidebar, setShowProfileSidebar] = useState(false);
