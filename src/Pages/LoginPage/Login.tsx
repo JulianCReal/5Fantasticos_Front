@@ -23,6 +23,9 @@ const Login: React.FC = () => {
       });
       
       sessionStorage.setItem('token', response.data.data.token);
+
+      const userProfile = response.data.data.profile;
+      sessionStorage.setItem('userProfile', JSON.stringify(userProfile));
       navigate("/dashboard");
     } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
