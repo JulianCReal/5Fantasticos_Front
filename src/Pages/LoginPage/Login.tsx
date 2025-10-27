@@ -1,21 +1,29 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login: React.FC = () => {
-  // Estados para los valores de los inputs, pre-rellenados como en la imagen
-  const [username, setUsername] = useState("Pepito.perez-p");
-  const [password, setPassword] = useState("••••••••");
+  // Estados para los valores de los inputs
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Usuario:", username);
-    console.log("Contraseña:", password);
-
-    navigate("/dashboard");
-    // Nota: Se evita el uso de alert() por buenas prácticas en React.
+    
+    try {
+      const response = await axios.post('http://localhost:8080/auth/login', {
+        email,
+        password
+      });
+      
+      sessionStorage.setItem('token', response.data.data.token);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -50,12 +58,12 @@ const Login: React.FC = () => {
           {/* Formulario */}
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">
-              <label htmlFor="username">Usuario</label>
+              <label htmlFor="email">Email</label>
               <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="form-group">
