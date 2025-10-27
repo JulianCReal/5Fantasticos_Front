@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
+import Popup from "../../Components/Popuperror/Popup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -7,6 +8,8 @@ const Login: React.FC = () => {
   // Estados para los valores de los inputs
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [popup, setPopup] = useState<{ title: string; message: string } | null>(null);
 
   const navigate = useNavigate();
 
@@ -21,8 +24,34 @@ const Login: React.FC = () => {
       
       sessionStorage.setItem('token', response.data.data.token);
       navigate("/dashboard");
-    } catch (error) {
-      console.error('Error:', error);
+    } catch (error: any) {
+      if (axios.isAxiosError(error) && error.response) {
+        const status = error.response.status;
+        const message = error.response.data?.message || "Ocurrió un error al iniciar sesión.";
+
+        if (status === 404) {
+          // Usuario no encontrado
+          setPopup({
+            title: "Usuario no encontrado",
+            message,
+          });
+        } else if (status === 401) {
+          setPopup({
+            title: "Credenciales inválidas",
+            message: "Correo o contraseña incorrectos.",
+          });
+        } else {
+          setPopup({
+            title: "Error del servidor",
+            message: "Intenta de nuevo más tarde.",
+          });
+        }
+      } else {
+        setPopup({
+          title: "Error de conexión",
+          message: "No se pudo conectar con el servidor.",
+        });
+      }
     }
   };
 
@@ -81,6 +110,7 @@ const Login: React.FC = () => {
           </form>
         </div>
       </div>
+      {popup && (<Popup title={popup.title} message={popup.message} onClose={() => setPopup(null)}/>)}
     </div>
   );
 };
