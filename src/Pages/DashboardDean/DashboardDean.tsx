@@ -74,11 +74,11 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
 
 // Sub-componente para cada módulo (icono + texto)
 const ModuleCard: React.FC<ModuleProps> = ({ iconType, label, onClick }) => (
-    <div className="module-card" onClick={onClick} style={{ cursor: "pointer" }}>
-        <div className="module-icon">
+    <div className="dean-module-card" onClick={onClick} style={{ cursor: "pointer" }}>
+        <div className="dean-module-icon">
             <ModuleIconSVG type={iconType} />
         </div>
-        <span className="module-text">{label}</span>
+        <span className="dean-module-text">{label}</span>
     </div>
 );
 
@@ -126,27 +126,27 @@ const DashboardDean: React.FC = () => {
     ];
 
     return (
-        <div className="dashboard-container">
+        <div className="dean-dashboard-container">
             
-            <header className="dashboard-header">
-                <div className="dashboard-logo-container">
+            <header className="dean-dashboard-header">
+                <div className="dean-dashboard-logo-container">
                     DECANATO DE INGENIERÍA
                     <br/>
                     ESCUELA COLOMBIANA
                 </div>
-                
-                <div className="header-right-tools">
-                    <div className="search-bar-container">
-                        <button className="search-button">Buscar</button> 
+
+                <div className="dean-header-right-tools">
+                    <div className="dean-search-bar-container">
+                        <button className="dean-search-button">Buscar</button>
                         <input
                             type="text"
                             placeholder="Buscar estudiantes, clases..."
                             className="search-input"
                         />
                     </div>
-                    
-                    <button className="profile-icon-button" onClick={() => setShowProfileSidebar(true)}>
-                        <div className="profile-icon-svg">
+
+                    <button className="dean-profile-icon-button" onClick={() => setShowProfileSidebar(true)}>
+                        <div className="dean-profile-icon-svg">
                             <ModuleIconSVG type="Perfil" />
                         </div>
                     </button>
@@ -154,45 +154,45 @@ const DashboardDean: React.FC = () => {
                 </div>
             </header>
 
-            <div className="dashboard-content">
-                <h1 className="welcome-title">
+            <div className="dean-dashboard-content">
+                <h1 className="dean-welcome-title">
                     Bienvenido, Decano
                 </h1>
                 
                 {/* Indicadores Clave (Métricas de alto nivel para el Decano) */}
-                <div className="modules-grid" style={{marginBottom: '40px'}}>
-                    <div className="module-card" style={{borderTopColor: '#006400'}}> {/* Dark Green */}
-                        <span className="module-text" style={{fontSize: '2rem', fontWeight: 900, color: '#006400'}}>
+                <div className="dean-modules-grid" style={{marginBottom: '40px'}}>
+                    <div className="dean-module-card" style={{borderTopColor: '#006400'}}> {/* Dark Green */}
+                        <span className="dean-module-text" style={{fontSize: '2rem', fontWeight: 900, color: '#006400'}}>
                             {studentPerformance.average.toFixed(2)}
                         </span>
-                        <span className="module-text" style={{fontSize: '0.9rem', color: '#555', fontWeight: 600}}>
+                        <span className="dean-module-text" style={{fontSize: '0.9rem', color: '#555', fontWeight: 600}}>
                             Promedio General
                         </span>
                     </div>
                     
-                    <div className="module-card" style={{borderTopColor: '#ff8c00'}}> {/* Dark Orange */}
-                        <span className="module-text" style={{fontSize: '2rem', fontWeight: 900, color: '#ff8c00'}}>
+                    <div className="dean-module-card" style={{borderTopColor: '#ff8c00'}}> {/* Dark Orange */}
+                        <span className="dean-module-text" style={{fontSize: '2rem', fontWeight: 900, color: '#ff8c00'}}>
                             {studentPerformance.pendingActions}
                         </span>
-                        <span className="module-text" style={{fontSize: '0.9rem', color: '#555', fontWeight: 600}}>
+                        <span className="dean-module-text" style={{fontSize: '0.9rem', color: '#555', fontWeight: 600}}>
                             Solicitudes Pendientes
                         </span>
                     </div>
 
-                    <div className="module-card" style={{borderTopColor: '#8b0000'}}> {/* Red */}
-                        <span className="module-text" style={{fontSize: '2rem', fontWeight: 900, color: '#8b0000'}}>
+                    <div className="dean-module-card" style={{borderTopColor: '#8b0000'}}> {/* Red */}
+                        <span className="dean-module-text" style={{fontSize: '2rem', fontWeight: 900, color: '#8b0000'}}>
                             4
                         </span>
-                        <span className="module-text" style={{fontSize: '0.9rem', color: '#555', fontWeight: 600}}>
+                        <span className="dean-module-text" style={{fontSize: '0.9rem', color: '#555', fontWeight: 600}}>
                             Reportes en Borrador
                         </span>
                     </div>
 
-                    <div className="module-card" style={{borderTopColor: '#1e90ff'}}> {/* Dodger Blue */}
-                        <span className="module-text" style={{fontSize: '2rem', fontWeight: 900, color: '#1e90ff'}}>
+                    <div className="dean-module-card" style={{borderTopColor: '#1e90ff'}}> {/* Dodger Blue */}
+                        <span className="dean-module-text" style={{fontSize: '2rem', fontWeight: 900, color: '#1e90ff'}}>
                             25
                         </span>
-                        <span className="module-text" style={{fontSize: '0.9rem', color: '#555', fontWeight: 600}}>
+                        <span className="dean-module-text" style={{fontSize: '0.9rem', color: '#555', fontWeight: 600}}>
                             Docentes Activos
                         </span>
                     </div>
@@ -200,15 +200,15 @@ const DashboardDean: React.FC = () => {
 
 
                 {/* Módulos de Acciones (Grid de Módulos) */}
-                <div className="modules-grid">
+                <div className="dean-modules-grid">
                     {modules.map((module, index) => (
                         <ModuleCard key={index} iconType={module.iconType} label={module.label} onClick={module.onClick}/>
                     ))}
                 </div>
             </div>
 
-            <div className="dashboard-footer-wave-1"></div>
-            <div className="dashboard-footer-wave-2"></div>
+            <div className="dean-dashboard-footer-wave-1"></div>
+            <div className="dean-dashboard-footer-wave-2"></div>
         </div>
     );
 };

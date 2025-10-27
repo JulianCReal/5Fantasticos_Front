@@ -73,8 +73,8 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
 
 // Sub-componente para cada módulo (icono + texto)
 const ModuleCard: React.FC<ModuleProps> = ({ iconType, label, onClick }) => (
-    <div className="module-card" onClick={onClick} style={{ cursor: "pointer" }}>
-        <div className="module-icon">
+    <div className="student-module-card" onClick={onClick} style={{ cursor: "pointer" }}>
+        <div className="student-module-icon">
             {/* Si el tipo es 'Semáforo', usamos un ícono diferente al SVG original */}
             {iconType === "Semáforo" ? (
                  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -87,7 +87,7 @@ const ModuleCard: React.FC<ModuleProps> = ({ iconType, label, onClick }) => (
                 <ModuleIconSVG type={iconType} />
             )}
         </div>
-        <span className="module-text">{label}</span>
+        <span className="student-module-text">{label}</span>
     </div>
 );
 
@@ -140,30 +140,30 @@ const DashboardStudent: React.FC = () => {
     ];
 
     return (
-        <div className="dashboard-container">
-            
-            <header className="dashboard-header">
-                <div className="dashboard-logo-container">
+        <div className="student-dashboard-container">
+
+            <header className="student-dashboard-header">
+                <div className="student-dashboard-logo-container">
                     ESCUELA COLOMBIANA DE INGENIERÍA
                     <br/>
                     JULIO GARAVITO
                 </div>
                 
                 {/* Contenedor Flex para la barra de búsqueda y el ícono de perfil */}
-                <div className="header-right-tools">
+                <div className="student-header-right-tools">
                     {/* Barra de Búsqueda UNIFICADA (Botón a la izquierda) */}
-                    <div className="search-bar-container">
-                        <button className="search-button">Buscar</button> 
+                    <div className="student-search-bar-container">
+                        <button className="student-search-button">Buscar</button> 
                         <input
                             type="text"
                             placeholder="Ingresa tu búsqueda"
-                            className="search-input"
+                            className="student-search-input"
                         />
                     </div>
                     
                     {/* Nuevo Ícono de Perfil */}
-                    <button className="profile-icon-button" onClick={() => setShowProfileSidebar(true)}>
-                        <div className="profile-icon-svg">
+                    <button className="student-profile-icon-button" onClick={() => setShowProfileSidebar(true)}>
+                        <div className="student-profile-icon-svg">
                             <ModuleIconSVG type="Perfil" />
                         </div>
                     </button>
@@ -172,16 +172,16 @@ const DashboardStudent: React.FC = () => {
                 </div>
             </header>
 
-            <div className="dashboard-content">
-                <div className="modules-grid">
+            <div className="student-dashboard-content">
+                <div className="student-modules-grid">
                     {modules.map((module, index) => (
                         <ModuleCard key={index} iconType={module.iconType} label={module.label} onClick={module.onClick}/>
                     ))}
                 </div>
             </div>
 
-            <div className="dashboard-footer-wave-1"></div>
-            <div className="dashboard-footer-wave-2"></div>
+            <div className="student-dashboard-footer-wave-1"></div>
+            <div className="student-dashboard-footer-wave-2"></div>
         </div>
     );
 };

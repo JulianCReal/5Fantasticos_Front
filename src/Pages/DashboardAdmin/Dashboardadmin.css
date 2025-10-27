@@ -146,7 +146,7 @@
 
 
       /* Contenedor de Módulos (Iconos Centrales) */
-      .modules-grid {
+      .admin-modules-grid {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -161,7 +161,7 @@
       }
 
       /* MÓDULOS SIN CAJAS BLANCAS */
-      .module-card {
+      .admin-module-card {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -172,23 +172,23 @@
         text-align: center;
       }
 
-      .module-card:hover {
+      .admin-module-card:hover {
         transform: scale(1.05); /* Efecto hover sutil */
       }
 
-      .module-icon {
+      .admin-module-icon {
         color: #8b0000; 
         width: 70px; 
         height: 70px;
         margin-bottom: 10px;
         transition: color 0.3s;
       }
-      
-      .module-card:hover .module-icon {
+
+      .admin-module-card:hover .admin-module-icon {
           color: #a50000;
       }
-      
-      .module-text {
+
+      .admin-module-text {
         color: #333;
         font-size: 0.95rem;
         font-weight: 600;
@@ -197,7 +197,7 @@
       /* FIN MÓDULOS SIN CAJAS BLANCAS */
 
       /* OLA 1 (Más grande, color oscuro, suave) */
-      .dashboard-footer-wave-1 {
+      .admin-dashboard-footer-wave-1 {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -211,7 +211,7 @@
       }
 
       /* OLA 2 (Más pequeña, color claro, superpuesta, suave) */
-      .dashboard-footer-wave-2 {
+      .admin-dashboard-footer-wave-2 {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -227,49 +227,49 @@
       
       /* Media Query para responsividad en móviles */
       @media (max-width: 768px) {
-          .dashboard-container {
+          .admin-dashboard-container {
               overflow-y: auto; 
               height: auto;
               min-height: 100vh;
           }
-          .dashboard-header {
+          .admin-dashboard-header {
               flex-direction: column;
               gap: 20px;
               padding: 20px;
           }
           /* Alineación de búsqueda y perfil en móvil */
-          .header-right-tools {
+          .admin-header-right-tools {
               width: 100%;
               justify-content: space-between;
               gap: 10px;
           }
-          .search-bar-container {
+          .admin-search-bar-container {
               flex-grow: 1; /* Permite que la barra crezca */
           }
-          .dashboard-logo-container {
+          .admin-dashboard-logo-container {
               width: 100%;
               max-width: 300px;
               height: 50px;
           }
-          .search-bar-container {
+          .admin-search-bar-container {
               width: auto; /* Ancho automático basado en flex-grow */
           }
-          .modules-grid {
+          .admin-modules-grid {
               padding: 50px 20px;
               gap: 30px;
               transform: translateY(0); /* Desactivamos el offset en móvil */
           }
-          .module-card {
+          .admin-module-card {
               width: 45%;
           }
-          .dashboard-footer-wave-1,
-          .dashboard-footer-wave-2 {
+          .admin-dashboard-footer-wave-1,
+          .admin-dashboard-footer-wave-2 {
               height: 150px; /* Reducido para móvil */
               clip-path: ellipse(150% 100% at 50% 100%); /* Volvemos a elipse simple para móvil */
               transform: translateY(0); /* Sin transformaciones extra en móvil */
               opacity: 1;
           }
-          .dashboard-footer-wave-2 {
+          .admin-dashboard-footer-wave-2 {
               height: 120px;
           }
       }

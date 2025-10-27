@@ -1,5 +1,5 @@
 /* Fuente: Inter */
-.dashboard-container {
+.dean-dashboard-container {
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
     background-color: #f0f0f0;
@@ -8,7 +8,7 @@
 }
 
 /* --- ENCABEZADO: Moderno y de Alto Contraste --- */
-.dashboard-header {
+.dean-dashboard-header {
     background-color: #8b0000; /* Rojo principal de la marca */
     color: white;
     padding: 15px 40px;
@@ -21,7 +21,7 @@
     z-index: 50;
 }
 
-.dashboard-logo-container {
+.dean-dashboard-logo-container {
     font-size: 1.1rem;
     font-weight: 700;
     line-height: 1.4;
@@ -29,14 +29,14 @@
     opacity: 0.9;
 }
 
-.header-right-tools {
+.dean-header-right-tools {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
 /* Búsqueda UNIFICADA */
-.search-bar-container {
+.dean-search-bar-container {
     display: flex;
     background-color: white;
     border-radius: 8px;
@@ -44,7 +44,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.search-button {
+.dean-search-button {
     background-color: #f0f0f0;
     color: #333;
     border: none;
@@ -54,11 +54,11 @@
     transition: background-color 0.2s;
 }
 
-.search-button:hover {
+.dean-search-button:hover {
     background-color: #e0e0e0;
 }
 
-.search-input {
+.dean-search-input {
     border: none;
     padding: 10px 15px;
     font-size: 1rem;
@@ -68,7 +68,7 @@
 }
 
 /* Icono de Perfil */
-.profile-icon-button {
+.dean-profile-icon-button {
     background: none;
     border: 2px solid white;
     border-radius: 50%;
@@ -79,19 +79,19 @@
     transition: background-color 0.2s, transform 0.2s;
 }
 
-.profile-icon-button:hover {
+.dean-profile-icon-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
     transform: scale(1.05);
 }
 
-.profile-icon-svg {
+.dean-profile-icon-svg {
     color: white;
     width: 100%;
     height: 100%;
 }
 
 /* --- CONTENIDO PRINCIPAL --- */
-.dashboard-content {
+.dean-dashboard-content {
     flex-grow: 1;
     padding: 40px 40px 60px 40px;
     max-width: 1400px;
@@ -100,7 +100,7 @@
 }
 
 /* Título de Bienvenida */
-.welcome-title {
+.dean-welcome-title {
     font-size: 2.5rem;
     font-weight: 900;
     color: #333;
@@ -108,14 +108,14 @@
 }
 
 /* Contenedor de Módulos (Grid Adaptativo) */
-.modules-grid {
+.dean-modules-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 30px;
 }
 
 /* Tarjeta de Módulo */
-.module-card {
+.dean-module-card {
     background-color: white;
     padding: 25px;
     border-radius: 12px;
@@ -129,20 +129,20 @@
     border-top: 5px solid #8b0000;
 }
 
-.module-card:hover {
+.dean-module-card:hover {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     transform: translateY(-5px);
     border-top-color: #a00000;
 }
 
-.module-icon {
+.dean-module-icon {
     color: #8b0000;
     width: 45px;
     height: 45px;
     margin-bottom: 15px;
 }
 
-.module-text {
+.dean-module-text {
     font-size: 1.2rem;
     font-weight: 700;
     color: #333;
@@ -151,42 +151,42 @@
 }
 
 /* --- FOOTER (Ondas decorativas) --- */
-.dashboard-footer-wave-1 {
+.dean-dashboard-footer-wave-1 {
     height: 40px;
     background: linear-gradient(180deg, #f0f0f0 0%, #dcdcdc 100%);
 }
-.dashboard-footer-wave-2 {
+.dean-dashboard-footer-wave-2 {
     height: 20px;
     background-color: #dcdcdc;
 }
 
 /* --- Responsividad para móviles --- */
 @media (max-width: 768px) {
-    .dashboard-header {
+    .dean-dashboard-header {
         padding: 10px 20px;
     }
-    .dashboard-logo-container {
+    .dean-dashboard-logo-container {
         font-size: 0.9rem;
     }
-    .search-input {
+    .dean-search-input {
         width: 100px; 
         padding: 8px 10px;
     }
-    .search-button {
+    .dean-search-button {
         padding: 8px 10px;
     }
-    .profile-icon-button {
+    .dean-profile-icon-button {
         width: 35px;
         height: 35px;
     }
-    .dashboard-content {
+    .dean-dashboard-content {
         padding: 20px;
     }
-    .welcome-title {
+    .dean-welcome-title {
         font-size: 2rem;
         margin-bottom: 20px;
     }
-    .modules-grid {
+    .dean-modules-grid {
         grid-template-columns: 1fr; 
         gap: 20px;
     }

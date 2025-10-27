@@ -14,7 +14,7 @@
 
       /* --- ESTILOS DEL DASHBOARD (Ajustados para 100vh) --- */
 
-      .dashboard-container {
+      .student-dashboard-container {
         width: 100%;
         height: 100vh; /* Ocupa el 100% de la altura de la vista */
         display: flex;
@@ -24,7 +24,7 @@
       }
 
       /* Contenido principal (Excluye la ola de abajo, maneja el centrado de módulos) */
-      .dashboard-content {
+      .student-dashboard-content {
           position: relative;
           z-index: 10; 
           flex-grow: 1; /* Permite que ocupe el espacio restante */
@@ -36,7 +36,7 @@
       }
 
       /* Header (Logo, Búsqueda y Perfil) */
-      .dashboard-header {
+      .student-dashboard-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -50,7 +50,7 @@
         z-index: 11; /* Que esté por encima de todo */
       }
       
-      .dashboard-logo-container {
+      .student-dashboard-logo-container {
         width: 250px;
         height: 70px;
         background-color: #8b0000;
@@ -67,7 +67,7 @@
       }
 
       /* Contenedor para la barra de búsqueda y el ícono de perfil */
-      .header-right-tools {
+      .student-header-right-tools {
           display: flex;
           align-items: center;
           gap: 20px; /* Espacio entre la barra de búsqueda y el ícono */
@@ -75,7 +75,7 @@
 
 
       /* BARRA DE BÚSQUEDA UNIFICADA */
-      .search-bar-container {
+      .student-search-bar-container {
         display: flex;
         align-items: center;
         border-radius: 9999px; /* Redondeado completo */
@@ -86,7 +86,7 @@
         width: 400px;
       }
 
-      .search-input {
+      .student-search-input {
         flex-grow: 1;
         padding: 12px 20px;
         border: none;
@@ -94,11 +94,11 @@
         font-size: 1rem;
       }
 
-      .search-input:focus {
+      .student-search-input:focus {
           outline: none;
       }
 
-      .search-button {
+      .student-search-button {
         background-color: #8b0000;
         color: white;
         border: none;
@@ -110,14 +110,14 @@
         height: 100%; 
         min-width: 120px;
       }
-      
-      .search-button:hover {
+
+      .student-search-button:hover {
           background-color: #a50000;
       }
       /* FIN BARRA DE BÚSQUEDA UNIFICADA */
 
       /* ESTILOS DEL ÍCONO DE PERFIL */
-      .profile-icon-button {
+      .student-profile-icon-button {
           background-color: #ffffff;
           border: 2px solid #e0e0e0;
           border-radius: 50%;
@@ -132,12 +132,12 @@
           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
       }
 
-      .profile-icon-button:hover {
+      .student-profile-icon-button:hover {
           border-color: #8b0000;
           transform: scale(1.05);
       }
 
-      .profile-icon-svg {
+      .student-profile-icon-svg {
           color: #8b0000; /* Color del icono */
           width: 28px;
           height: 28px;
@@ -146,7 +146,7 @@
 
 
       /* Contenedor de Módulos (Iconos Centrales) */
-      .modules-grid {
+      .student-modules-grid {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -161,7 +161,7 @@
       }
 
       /* MÓDULOS SIN CAJAS BLANCAS */
-      .module-card {
+      .student-module-card {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -172,23 +172,23 @@
         text-align: center;
       }
 
-      .module-card:hover {
+      .student-module-card:hover {
         transform: scale(1.05); /* Efecto hover sutil */
       }
 
-      .module-icon {
+      .student-module-icon {
         color: #8b0000; 
         width: 70px; 
         height: 70px;
         margin-bottom: 10px;
         transition: color 0.3s;
       }
-      
-      .module-card:hover .module-icon {
+
+      .student-module-card:hover .student-module-icon {
           color: #a50000;
       }
-      
-      .module-text {
+
+      .student-module-text {
         color: #333;
         font-size: 0.95rem;
         font-weight: 600;
@@ -197,7 +197,7 @@
       /* FIN MÓDULOS SIN CAJAS BLANCAS */
 
       /* OLA 1 (Más grande, color oscuro, suave) */
-      .dashboard-footer-wave-1 {
+      .student-dashboard-footer-wave-1 {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -211,7 +211,7 @@
       }
 
       /* OLA 2 (Más pequeña, color claro, superpuesta, suave) */
-      .dashboard-footer-wave-2 {
+      .student-dashboard-footer-wave-2 {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -227,49 +227,49 @@
       
       /* Media Query para responsividad en móviles */
       @media (max-width: 768px) {
-          .dashboard-container {
+          .student-dashboard-container {
               overflow-y: auto; 
               height: auto;
               min-height: 100vh;
           }
-          .dashboard-header {
+          .student-dashboard-header {
               flex-direction: column;
               gap: 20px;
               padding: 20px;
           }
           /* Alineación de búsqueda y perfil en móvil */
-          .header-right-tools {
+          .student-header-right-tools {
               width: 100%;
               justify-content: space-between;
               gap: 10px;
           }
-          .search-bar-container {
+          .student-search-bar-container {
               flex-grow: 1; /* Permite que la barra crezca */
           }
-          .dashboard-logo-container {
+          .student-dashboard-logo-container {
               width: 100%;
               max-width: 300px;
               height: 50px;
           }
-          .search-bar-container {
+          .student-search-bar-container {
               width: auto; /* Ancho automático basado en flex-grow */
           }
-          .modules-grid {
+          .student-modules-grid {
               padding: 50px 20px;
               gap: 30px;
               transform: translateY(0); /* Desactivamos el offset en móvil */
           }
-          .module-card {
+          .student-module-card {
               width: 45%;
           }
-          .dashboard-footer-wave-1,
-          .dashboard-footer-wave-2 {
+          .student-dashboard-footer-wave-1,
+          .student-dashboard-footer-wave-2 {
               height: 150px; /* Reducido para móvil */
               clip-path: ellipse(150% 100% at 50% 100%); /* Volvemos a elipse simple para móvil */
               transform: translateY(0); /* Sin transformaciones extra en móvil */
               opacity: 1;
           }
-          .dashboard-footer-wave-2 {
+          .student-dashboard-footer-wave-2 {
               height: 120px;
           }
       }
