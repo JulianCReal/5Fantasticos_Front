@@ -1,7 +1,8 @@
 import React, { JSX, useState } from "react";
 import "./Dashboard.css";
-import ProfileSidebar from "../../Components/SideBarProfile/ProfileSideBar";import { useNavigate } from "react-router-dom";
-"/Components/SideBarProfile/ProfileSidebar"
+import ProfileSidebar from "../../Components/SideBarProfile/ProfileSideBar";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface ModuleProps {
     iconType: string;
@@ -85,8 +86,23 @@ const Dashboard: React.FC = () => {
     const handleRequestDashboard = () => {
         navigate("/requestDashboard");
     };
-    const handleHorario = ()=>{
-        navigate("/scheduleDisplay")
+    const handleHorario = async () => {
+        try {
+            const token = sessionStorage.getItem('token');
+            const userProfile = JSON.parse(sessionStorage.getItem('userProfile') || '{}');
+            const studentId = userProfile.studentId;
+            
+            const response = await axios.get(`http://localhost:8080/api/schedules/my-schedule/${studentId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            
+            navigate("/scheduleDisplay", { state: { scheduleData: response.data } });
+        } catch (error) {
+            console.error('Error obteniendo horario:', error);
+            navigate("/scheduleDisplay");
+        }
     }
     const handleSemaforo = ()=>{
         navigate("/")

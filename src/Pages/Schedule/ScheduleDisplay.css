@@ -90,34 +90,44 @@ body, html, #root {
 /* --- ESTILOS DE LA TABLA DE HORARIO --- */
 
 .schedule-content-wrapper {
-    max-width: 1200px;
-    width: 100%;
-    margin: 40px auto;
-    padding: 0 40px; 
+    width: 98vw;
+    margin: 10px auto;
+    padding: 0 10px; 
     box-sizing: border-box;
     flex-grow: 1;
+    height: calc(100vh - 150px);
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 .schedule-table-container {
     display: grid;
     /* Define 7 columnas: 1 para las horas + 6 para los días (Lun-Sab) */
-    grid-template-columns: minmax(100px, 1fr) repeat(6, minmax(100px, 4fr));
-    border: 1px solid #ccc;
+    grid-template-columns: 140px repeat(6, 1fr);
+    /* Define filas: 1 cabecera + 12 franjas horarias */
+    grid-template-rows: 70px repeat(12, 80px);
     background-color: white;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
+    min-width: 900px;
+    width: 100%;
 }
 
 .schedule-header-cell {
-    padding: 15px 10px;
+    padding: 20px 10px;
     font-weight: 600;
     color: white;
-    background-color: #8b0000; /* Rojo oscuro para la cabecera */
+    background-color: #8b0000;
     text-align: center;
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 0.9rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 2px solid #6d0000;
+    font-size: 1rem;
     user-select: none;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Esquina superior izquierda (celda vacía) */
@@ -127,34 +137,42 @@ body, html, #root {
 }
 
 .time-label-cell {
-    background-color: #f8f8f8; /* Fondo claro para las horas */
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #eee;
-    padding: 10px 5px;
+    background-color: #f8f8f8;
+    border-right: 2px solid #8b0000;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 8px;
     text-align: center;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #555;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
     display: flex;
     align-items: center;
     justify-content: center;
     user-select: none;
+    height: 80px;
 }
 
 .schedule-day-cell {
     position: relative;
-    border-right: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: #fafafa;
+    height: 80px;
 }
 
-/* Última columna (Sábado) sin borde derecho */
+/* Última columna (Sábado) con borde derecho */
 .schedule-day-cell:nth-child(7n) {
-    border-right: none;
+    border-right: 2px solid #8b0000;
 }
 
-/* Última fila sin borde inferior */
+/* Última fila con borde inferior */
 .schedule-table-container > div:nth-last-child(-n+7) {
-    border-bottom: none !important;
+    border-bottom: 2px solid #8b0000 !important;
+}
+
+/* Bordes externos del contenedor */
+.schedule-table-container {
+    border: 2px solid #8b0000;
 }
 
 /* Estilo para las celdas de clase dinámicas */

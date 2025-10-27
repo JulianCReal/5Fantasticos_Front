@@ -1,6 +1,6 @@
 import React, { JSX, useMemo, useState } from "react";
 import "./ScheduleDisplay.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ProfileSidebar from "../../Components/SideBarProfile/ProfileSideBar";
 
 interface ScheduleItem {
@@ -24,16 +24,20 @@ const initialSchedule: ScheduleItem[] = [
     { id: 5, code: "MATH", timeStart: "16:00", timeEnd: "17:30", day: "Martes" }, // 4:00 pm - 5:30 pm
 ];
 
-// Definición de las franjas horarias y días
+// Definición de las franjas horarias y días (7am a 7pm)
 const timeSlots = [
-    { label: "7:30 - 8:30 am", start: "07:30", end: "08:30" },
-    { label: "8:30 - 10:00 am", start: "08:30", end: "10:00" },
-    { label: "10:30 - 11:30 am", start: "10:30", end: "11:30" },
-    { label: "11:30 - 1:00 pm", start: "11:30", end: "13:00" },
-    { label: "1:00 - 2:30 pm", start: "13:00", end: "14:30" },
-    { label: "2:30 - 4:00 pm", start: "14:30", end: "16:00" },
-    { label: "4:00 - 5:30 pm", start: "16:00", end: "17:30" },
-    { label: "5:30 - 7:00 pm", start: "17:30", end: "19:00" },
+    { label: "7:00 - 8:00 am", start: "07:00", end: "08:00" },
+    { label: "8:00 - 9:00 am", start: "08:00", end: "09:00" },
+    { label: "9:00 - 10:00 am", start: "09:00", end: "10:00" },
+    { label: "10:00 - 11:00 am", start: "10:00", end: "11:00" },
+    { label: "11:00 - 12:00 pm", start: "11:00", end: "12:00" },
+    { label: "12:00 - 1:00 pm", start: "12:00", end: "13:00" },
+    { label: "1:00 - 2:00 pm", start: "13:00", end: "14:00" },
+    { label: "2:00 - 3:00 pm", start: "14:00", end: "15:00" },
+    { label: "3:00 - 4:00 pm", start: "15:00", end: "16:00" },
+    { label: "4:00 - 5:00 pm", start: "16:00", end: "17:00" },
+    { label: "5:00 - 6:00 pm", start: "17:00", end: "18:00" },
+    { label: "6:00 - 7:00 pm", start: "18:00", end: "19:00" },
 ];
 
 const days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
@@ -77,9 +81,39 @@ interface HorarioProps {
 }
 
 const Horario: React.FC<HorarioProps> = ({ onBack = () => {} }) => {
-    // Estado para las clases, permitiendo que sea modificable
-    // En una app real, esto vendría de Firebase/Firestore
-    const [schedule, setSchedule] = React.useState<ScheduleItem[]>(initialSchedule);
+    const location = useLocation();
+    const scheduleData = location.state?.scheduleData;
+    
+    // Función para transformar los datos del backend al formato esperado
+    const transformBackendData = (backendData: any): ScheduleItem[] => {
+        if (!backendData || !backendData.classes || !Array.isArray(backendData.classes)) {
+            return initialSchedule;
+        }
+        
+        const convertTime = (time: string) => {
+            const [timePart, period] = time.split(' ');
+            const [hours, minutes] = timePart.split(':');
+            let hour24 = parseInt(hours);
+            
+            if (period === 'pm' && hour24 !== 12) hour24 += 12;
+            if (period === 'am' && hour24 === 12) hour24 = 0;
+            
+            return `${hour24.toString().padStart(2, '0')}:${minutes}`;
+        };
+        
+        return backendData.classes.map((item: any, index: number) => ({
+            id: index,
+            code: item.subjectCode || 'N/A',
+            timeStart: convertTime(item.startTime),
+            timeEnd: convertTime(item.endTime),
+            day: item.day as 'Lunes' | 'Martes' | 'Miercoles' | 'Jueves' | 'Viernes' | 'Sabado'
+        }));
+    };
+    
+    // Usar los datos del backend si están disponibles, sino usar datos de ejemplo
+    const [schedule, setSchedule] = React.useState<ScheduleItem[]>(
+        scheduleData ? transformBackendData(scheduleData) : initialSchedule
+    );
     
     // Mapeo de minutos del día para calcular posiciones y alturas
     const minuteMap = useMemo(() => {
@@ -144,22 +178,8 @@ const Horario: React.FC<HorarioProps> = ({ onBack = () => {} }) => {
         };
     };
 
-    // Estilo para el contenedor de la tabla (grid-template-rows)
-    const tableStyle = useMemo(() => {
-        // La primera fila es la cabecera (fixed height)
-        const headerHeight = 65; 
-        
-        // Las siguientes filas son dinámicas
-        const rowHeights = timeSlots.map(slot => {
-            const slotData = minuteMap.get(slot.start);
-            // Multiplicamos por 1px para tener la unidad css (ej: 60px)
-            return `${slotData?.height || BASE_CELL_HEIGHT}px`;
-        }).join(" ");
-
-        return {
-            gridTemplateRows: `${headerHeight}px ${rowHeights}`,
-        };
-    }, [minuteMap]);
+    // Estilo simplificado para el contenedor de la tabla
+    const tableStyle = {};
     
     // Calcula la altura total de la zona de horarios
     const totalScheduleHeight = useMemo(() => {
@@ -196,7 +216,7 @@ const Horario: React.FC<HorarioProps> = ({ onBack = () => {} }) => {
             <ProfileSidebar open={showProfileSidebar} onClose={() => setShowProfileSidebar(false)} />
 
             <div className="schedule-content-wrapper">
-                <div className="schedule-table-container" style={tableStyle}>
+                <div className="schedule-table-container">
                     {/* Fila de Cabecera (Días de la semana) */}
                     <div className="schedule-header-cell">{/* Esquina vacía */}</div>
                     {days.map(day => (
@@ -210,8 +230,7 @@ const Horario: React.FC<HorarioProps> = ({ onBack = () => {} }) => {
                             // 1. Etiqueta de la hora (Fila 1, Columna 1)
                             <div 
                                 key={`time-${slotIndex}`} 
-                                className="time-label-cell" 
-                                style={{ height: `${minuteMap.get(slot.start)?.height || BASE_CELL_HEIGHT}px` }}
+                                className="time-label-cell"
                             >
                                 {slot.label}
                             </div>,
@@ -232,17 +251,11 @@ const Horario: React.FC<HorarioProps> = ({ onBack = () => {} }) => {
                                     <div 
                                         key={`day-${slotIndex}-${dayIndex}`} 
                                         className="schedule-day-cell"
-                                        style={{ height: `${minuteMap.get(slot.start)?.height || BASE_CELL_HEIGHT}px` }}
                                     >
-                                        {/* Renderizamos solo las clases que caen en la primera franja de su duración */}
+                                        {/* Renderizamos solo las clases que empiezan en esta franja */}
                                         {classesForDay
                                             .filter(item => {
-                                                // Una clase debe empezar exactamente en el tiempo inicial de una franja, 
-                                                // o al menos en el mismo minuto.
-                                                const [itemH, itemM] = item.timeStart.split(':').map(Number);
-                                                const [slotH, slotM] = slot.start.split(':').map(Number);
-
-                                                return (itemH === slotH && itemM === slotM);
+                                                return item.timeStart === slot.start;
                                             })
                                             .map(item => (
                                                 <div 
