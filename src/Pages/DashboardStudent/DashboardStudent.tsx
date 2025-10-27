@@ -92,7 +92,7 @@ const Dashboard: React.FC = () => {
             const userProfile = JSON.parse(sessionStorage.getItem('userProfile') || '{}');
             const studentId = userProfile.studentId;
             
-            const response = await axios.get(`http://localhost:8080/api/schedules/my-schedule/${studentId}`, {
+            const response = await axios.get(`http://localhost:8083/api/schedules/my-schedule/${studentId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
