@@ -41,11 +41,11 @@ const Login: React.FC = () => {
           <div className="login-left-content">
             <div className="login-logo">
               {/* Placeholder para el logo gráfico */}
-              <div className="logo-placeholder">
-                Logo
-                <br />
-                Aquí
-              </div>
+                <img 
+                  src="/logou.jpg" 
+                  alt="Logo" 
+                  className="logo-image"
+                />
             </div>
           </div>
         </div>
