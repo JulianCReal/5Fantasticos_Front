@@ -24,10 +24,29 @@ const Login: React.FC = () => {
       
       sessionStorage.setItem('token', response.data.data.token);
       sessionStorage.setItem('userProfile', JSON.stringify(response.data.data.profile));
-      sessionStorage.setItem('userRole', response.data.data.profile.role);
-      navigate("/dashboard");
+      sessionStorage.setItem('userRole', response.data.data.role)
 
-    
+      console.log("Rol:", response.data.data.role);
+      console.log("Session role:", sessionStorage.getItem('userRole'));
+      switch (sessionStorage.getItem('userRole')) {
+        case 'STUDENT':
+          navigate("/dashboardStudent");
+          break;
+        case 'DEAN':
+          navigate("/dashboardDean");
+          break;
+        case 'TEACHER':
+          navigate("/");
+          break;
+        case 'ADMIN':
+          navigate("/");
+          break;
+        default:
+          console.warn("Rol desconocido:", sessionStorage.getItem('userRole'));
+          navigate("/"); // opcional: ruta por defecto
+          break;
+      }
+
     } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
         const status = error.response.status;

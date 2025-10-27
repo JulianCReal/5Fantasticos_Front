@@ -1,8 +1,9 @@
 import React, { JSX, useState } from "react";
-import "./Dashboard.css";
+import "./DashboardStudent.css";
 import ProfileSidebar from "../../Components/SideBarProfile/ProfileSideBar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 
 interface ModuleProps {
     iconType: string;
@@ -11,6 +12,7 @@ interface ModuleProps {
 }
 
 const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
+    // Definiciones de íconos (se mantienen)
     const iconMap: { [key: string]: JSX.Element } = {
         "Mi horario": (
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -26,10 +28,14 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
         "Semáforo": (
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="10" y="2" width="4" height="20" rx="2"></rect>
-                <circle cx="12" cy="7" r="1.5" fill="red" stroke="none" />
-                <circle cx="12" cy="12" r="1.5" fill="yellow" stroke="none" />
-                <circle cx="12" cy="17" r="1.5" fill="green" stroke="none" />
-                <line x1="12" y1="2" x2="12" y2="22" stroke="currentColor" strokeWidth="1"/>
+                {/* Ícono de lápiz en lugar de círculo para el semáforo como en la imagen */}
+                <line x1="10" y1="2" x2="10" y2="22" stroke="none" /> 
+                <line x1="14" y1="2" x2="14" y2="22" stroke="none" />
+                <path d="M12 17v4m0-12V7M12 12h.01" />
+                <path d="M16 3l-4 4-4-4" />
+                <path d="M16 21l-4-4-4 4" />
+                <path d="M18 10h-2v4h2z" />
+                <path d="M6 10h-2v4h2z" />
             </svg>
         ),
         "Solicitudes": (
@@ -69,14 +75,24 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
 const ModuleCard: React.FC<ModuleProps> = ({ iconType, label, onClick }) => (
     <div className="module-card" onClick={onClick} style={{ cursor: "pointer" }}>
         <div className="module-icon">
-            <ModuleIconSVG type={iconType} />
+            {/* Si el tipo es 'Semáforo', usamos un ícono diferente al SVG original */}
+            {iconType === "Semáforo" ? (
+                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="10" y="2" width="4" height="20" rx="2"></rect>
+                    <circle cx="12" cy="7" r="1.5" fill="red" stroke="none" />
+                    <circle cx="12" cy="12" r="1.5" fill="yellow" stroke="none" />
+                    <circle cx="12" cy="17" r="1.5" fill="green" stroke="none" />
+                </svg>
+            ) : (
+                <ModuleIconSVG type={iconType} />
+            )}
         </div>
         <span className="module-text">{label}</span>
     </div>
 );
 
 // --- COMPONENTE PRINCIPAL DASHBOARD ---
-const Dashboard: React.FC = () => {
+const DashboardStudent: React.FC = () => {
     
     
     const [showProfileSidebar, setShowProfileSidebar] = useState(false);
@@ -88,6 +104,7 @@ const Dashboard: React.FC = () => {
     };
     const handleHorario = async () => {
         try {
+            // Nota: Mantenemos la lógica original de autenticación y axios
             const token = sessionStorage.getItem('token');
             const userProfile = JSON.parse(sessionStorage.getItem('userProfile') || '{}');
             const studentId = userProfile.studentId;
@@ -124,6 +141,7 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="dashboard-container">
+            
             <header className="dashboard-header">
                 <div className="dashboard-logo-container">
                     ESCUELA COLOMBIANA DE INGENIERÍA
@@ -149,6 +167,7 @@ const Dashboard: React.FC = () => {
                             <ModuleIconSVG type="Perfil" />
                         </div>
                     </button>
+                    {/* Nota: ProfileSidebar requiere ser importado o simulado */}
                     <ProfileSidebar open={showProfileSidebar} onClose={() => setShowProfileSidebar(false)} />
                 </div>
             </header>
@@ -167,4 +186,4 @@ const Dashboard: React.FC = () => {
     );
 };
 
-export default Dashboard;
+export default DashboardStudent;
