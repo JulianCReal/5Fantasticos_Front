@@ -1,3 +1,4 @@
+import EnrollStudent from "./Pages/Admin/Group/EnrollStudent";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -13,9 +14,9 @@ import DashboardTeacher from "./Pages/DashboardTeacher/DashboardTeacher";
 import TeacherInfo from "./Pages/TeacherInfo/TeacherInfo";
 import TeacherGroups from "./Pages/TeacherGroups/TeacherGroups";
 import TeacherSchedules from "./Pages/TeacherSchedules/TeacherSchedules";
-
+import TeacherStudents from "./Pages/TeacherStudents/TeacherStudents";
+import AcademicTrafficLightApp from "./Pages/AcademicTrafficLight/AcademicTrafficLight";
 import EvaluateRequest from "./Pages/RequestPages/EvaluateRequest/EvaluateRequest";
-
 
 import DashboardAdmin from "./Pages/DashboardAdmin/DashboardAdmin";
 import Students from "./Pages/Admin/Students/Students";
@@ -36,7 +37,19 @@ import SearchTeacher from "./Pages/Admin/Teacher/Search/SearchTeacher";
 import DeleteTeacher from "./Pages/Admin/Teacher/Delete/DeleteTeacher";
 import UpdateTeacher from "./Pages/Admin/Teacher/Update/UpdateTeacher";
 import ListTeacher from "./Pages/Admin/Teacher/List/ListTeacher";
-
+import Subject from "./Pages/Admin/Subject/Subject";
+import ListGroups from "./Pages/Admin/Subject/ListGroups/ListGroups";
+import RegisterSubject from "./Pages/Admin/Subject/Register/RegisterSubject";
+import UpdateSubject from "./Pages/Admin/Subject/Update/UpdateSubject";
+import DeleteSubject from "./Pages/Admin/Subject/Delete/DeleteSubject";
+import SearchSubject from "./Pages/Admin/Subject/Search/SearchSubject";
+import ListSubject from "./Pages/Admin/Subject/List/ListSubject";
+import Group from "./Pages/Admin/Group/Group";
+import RegisterGroup from "./Pages/Admin/Group/Register/RegisterGroup";
+import UpdateGroup from "./Pages/Admin/Group/Update/UpdateGroup";
+import DeleteGroup from "./Pages/Admin/Group/Delete/DeleteGroup";
+import SearchGroup from "./Pages/Admin/Group/Search/SearchGroup";
+import ListGroup from "./Pages/Admin/Group/List/ListGroup";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -50,17 +63,15 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/teacherInfo" element={<TeacherInfo />} />
         <Route path="/teacherGroups" element={<TeacherGroups />} />
         <Route path="/teacherSchedules" element={<TeacherSchedules />} />
+        <Route path="/teacherStudents" element={<TeacherStudents />} />
 
         <Route path="/requestDashboard" element={<RequestDashboard />} />
         <Route path="/scheduleDisplay" element={<ScheduleDisplay />} />
         <Route path="/groupChangeRequest" element={<RequestChange />} />
         <Route path="/groupJoinRequest" element={<RequestJoin />} />
         <Route path="/groupLeaveRequest" element={<RequestLeave />} />
-        <Route path="/groupLeaveRequest" element={<RequestLeave />} />
-
-
-        <Route path="/dean/requests" element ={<EvaluateRequest />}/>
-
+        <Route path="/academicTrafficLight" element={<AcademicTrafficLightApp />} />
+        <Route path="/dean/requests" element={<EvaluateRequest />} />
 
         <Route path="/dashboardAdmin" element={<DashboardAdmin />} />
         <Route path="/admin/students" element={<Students />} />
@@ -81,7 +92,20 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/admin/teacher/delete" element={<DeleteTeacher />} />
         <Route path="/admin/teacher/update" element={<UpdateTeacher />} />
         <Route path="/admin/teacher/list" element={<ListTeacher />} />
-
+        <Route path="/admin/subject" element={<Subject />} />
+        <Route path="/admin/subject/listGroups" element={<ListGroups />} />
+        <Route path="/admin/subject/register" element={<RegisterSubject />} />
+        <Route path="/admin/subject/update" element={<UpdateSubject />} />
+        <Route path="/admin/subject/delete" element={<DeleteSubject />} />
+        <Route path="/admin/subject/search" element={<SearchSubject />} />
+        <Route path="/admin/subject/list" element={<ListSubject />} />
+        <Route path="/admin/group" element={<Group />} />
+        <Route path="/admin/group/register" element={<RegisterGroup />} />
+        <Route path="/admin/group/update" element={<UpdateGroup />} />
+        <Route path="/admin/group/delete" element={<DeleteGroup />} />
+        <Route path="/admin/group/search" element={<SearchGroup />} />
+        <Route path="/admin/group/list" element={<ListGroup />} />
+        <Route path="/admin/group/enroll" element={<EnrollStudent />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

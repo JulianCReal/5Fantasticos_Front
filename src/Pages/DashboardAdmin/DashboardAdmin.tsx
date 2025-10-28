@@ -1,5 +1,5 @@
 import React, { JSX, useState } from "react";
-import "./DashboardAdmin.css";
+import "../DashboardStudent/DashboardStudent.css";
 import ProfileSidebar from "../../Components/SideBarProfile/ProfileSideBar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -146,11 +146,11 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
 // Sub-componente para cada módulo (icono + texto)
 const ModuleCard: React.FC<ModuleProps> = ({ iconType, label, onClick }) => (
   <div
-    className="admin-module-card"
+    className="student-module-card"
     onClick={onClick}
     style={{ cursor: "pointer" }}
   >
-    <div className="admin-module-icon">
+    <div className="student-module-icon">
       {/* Si el tipo es 'Semáforo', usamos un ícono diferente al SVG original */}
       {iconType === "Semáforo" ? (
         <svg
@@ -173,7 +173,7 @@ const ModuleCard: React.FC<ModuleProps> = ({ iconType, label, onClick }) => (
         <ModuleIconSVG type={iconType} />
       )}
     </div>
-    <span className="admin-module-text">{label}</span>
+    <span className="student-module-text">{label}</span>
   </div>
 );
 
@@ -196,10 +196,10 @@ const DashboardAdmin: React.FC = () => {
     navigate("/admin/decanatures");
   };
   const handleMaterias = () => {
-    navigate("/admin/subjects");
+    navigate("/admin/subject");
   };
   const handleGrupos = () => {
-    navigate("/admin/groups");
+    navigate("/admin/group");
   };
 
   const modules: ModuleProps[] = [
@@ -220,32 +220,32 @@ const DashboardAdmin: React.FC = () => {
   ];
 
   return (
-    <div className="admin-dashboard-container">
-      <header className="admin-dashboard-header">
-        <div className="admin-dashboard-logo-container">
+    <div className="student-dashboard-container">
+      <header className="student-dashboard-header">
+        <div className="student-dashboard-logo-container">
           ESCUELA COLOMBIANA DE INGENIERÍA
           <br />
           JULIO GARAVITO
         </div>
 
         {/* Contenedor Flex para la barra de búsqueda y el ícono de perfil */}
-        <div className="admin-header-right-tools">
+        <div className="student-header-right-tools">
           {/* Barra de Búsqueda UNIFICADA (Botón a la izquierda) */}
-          <div className="admin-search-bar-container">
-            <button className="admin-search-button">Buscar</button>
+          <div className="student-search-bar-container">
+            <button className="student-search-button">Buscar</button>
             <input
               type="text"
               placeholder="Ingresa tu búsqueda"
-              className="admin-search-input"
+              className="student-search-input"
             />
           </div>
 
           {/* Nuevo Ícono de Perfil */}
           <button
-            className="admin-profile-icon-button"
+            className="student-profile-icon-button"
             onClick={() => setShowProfileSidebar(true)}
           >
-            <div className="admin-profile-icon-svg">
+            <div className="student-profile-icon-svg">
               <ModuleIconSVG type="Perfil" />
             </div>
           </button>
@@ -257,8 +257,8 @@ const DashboardAdmin: React.FC = () => {
         </div>
       </header>
 
-      <div className="admin-dashboard-content">
-        <div className="admin-modules-grid">
+      <div className="student-dashboard-content">
+        <div className="student-modules-grid">
           {modules.map((module, index) => (
             <ModuleCard
               key={index}
@@ -270,8 +270,8 @@ const DashboardAdmin: React.FC = () => {
         </div>
       </div>
 
-      <div className="admin-dashboard-footer-wave-1"></div>
-      <div className="admin-dashboard-footer-wave-2"></div>
+      <div className="student-dashboard-footer-wave-1"></div>
+      <div className="student-dashboard-footer-wave-2"></div>
     </div>
   );
 };
