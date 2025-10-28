@@ -1,345 +1,472 @@
-/* Reseteo básico y fuente principal */
-body, html, #root {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #f0f2f5;
-    overflow: hidden; 
+html, body {
+  height: 100%;
+  overflow-y: scroll;
 }
 
-/* --- ESTILOS GENERALES Y DE CABECERA --- */
-   
-.schedule-page-container {
-    width: 100%;
-    min-height: 100vh; /* Cambiado a min-height para que el scroll funcione */
-    display: flex;
-    flex-direction: column;
-    background-color: #f0f2f5;
-    overflow-y: auto; 
+.student-schedules-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  padding: 40px 20px;
 }
 
-.schedule-page-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 30px 40px;
-    max-width: 1200px;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0 auto;
-    background-color: white; 
-    border-bottom: 2px solid #8b0000;
+.student-schedules-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #8b0000;
+}
+
+.student-schedules-header h1 {
+  color: #8b0000;
+  font-size: 2rem;
+  margin: 0;
 }
 
 .back-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #8b0000;
-    transition: transform 0.2s;
+  background-color: #8b0000;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
 }
 
 .back-button:hover {
-    transform: translateX(-5px);
+  background-color: #a50000;
+  transform: translateX(-5px);
 }
 
-.schedule-page-title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: #8b0000;
-    flex-grow: 1; 
-    text-align: left;
-    margin-left: 20px;
-    margin-right: 20px;
+.teacher-schedules-content {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.profile-icon-button {
-    background-color: #ffffff;
-    border: 2px solid #e0e0e0;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+/* VISTA POR DÍA */
+.schedule-by-day {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
 }
 
-.profile-icon-button:hover {
-    border-color: #8b0000;
-    transform: scale(1.05);
+.day-section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  border-top: 4px solid #8b0000;
 }
 
-.profile-icon-svg {
-    color: #8b0000; 
-    width: 28px;
-    height: 28px;
+.day-title {
+  color: #8b0000;
+  font-size: 1.5rem;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
 }
 
-/* --- ESTILOS DE LA TABLA DE HORARIO --- */
-
-.schedule-content-wrapper {
-    width: 98vw;
-    margin: 10px auto;
-    padding: 0 10px; 
-    box-sizing: border-box;
-    flex-grow: 1;
-    height: calc(100vh - 150px);
-    overflow-y: auto;
-    overflow-x: auto;
+.sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.schedule-table-container {
-    display: grid;
-    /* Define 7 columnas: 1 para las horas + 6 para los días (Lun-Sab) */
-    grid-template-columns: 140px repeat(6, 1fr);
-    /* Define filas: 1 cabecera + 12 franjas horarias */
-    grid-template-rows: 70px repeat(12, 80px);
-    background-color: white;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-    min-width: 900px;
-    width: 100%;
+.session-card {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #8b0000;
+  border-radius: 5px;
+  padding: 15px;
+  transition: all 0.3s;
 }
 
-.schedule-header-cell {
-    padding: 20px 10px;
-    font-weight: 600;
-    color: white;
-    background-color: #8b0000;
-    text-align: center;
-    border-right: 1px solid rgba(255, 255, 255, 0.3);
-    border-bottom: 2px solid #6d0000;
-    font-size: 1rem;
-    user-select: none;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.session-card:hover {
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
-/* Esquina superior izquierda (celda vacía) */
-.schedule-header-cell:first-child {
-    background-color: #8b0000;
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
+.session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.time-label-cell {
-    background-color: #f8f8f8;
-    border-right: 2px solid #8b0000;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 8px;
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-    height: 80px;
+.session-time {
+  font-weight: 700;
+  color: #8b0000;
+  font-size: 1.1rem;
+}
+
+.session-group {
+  background-color: #8b0000;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.session-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.info-row .label {
+  font-weight: 600;
+  color: #8b0000;
+}
+
+.info-row .value {
+  color: #666;
+  text-align: right;
+}
+
+.no-sessions {
+  text-align: center;
+  color: #999;
+  padding: 20px;
+  font-style: italic;
+}
+
+/* SCHEDULE GRID STYLES */
+.schedule-grid-wrapper {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+.schedule-header {
+  display: grid;
+  grid-template-columns: 80px repeat(6, 1fr);
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #8b0000;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.schedule-time-label {
+  padding: 15px;
+  font-weight: 700;
+  color: #8b0000;
+  background-color: #fff5f5;
+  text-align: center;
+  border-right: 1px solid #e0e0e0;
+}
+
+.schedule-day-header {
+  padding: 15px;
+  font-weight: 700;
+  color: #8b0000;
+  text-align: center;
+  border-right: 1px solid #e0e0e0;
+  font-size: 1rem;
+}
+
+.schedule-day-header:last-child {
+  border-right: none;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 80px repeat(6, 1fr);
+  position: relative;
+  border-top: 1px solid #e0e0e0;
+}
+
+.schedule-time-row {
+  display: contents;
+}
+
+.schedule-time-cell {
+  padding: 15px;
+  font-weight: 600;
+  color: #666;
+  background-color: #fff5f5;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.2;
 }
 
 .schedule-day-cell {
-    position: relative;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    background-color: #fafafa;
-    height: 80px;
+  position: relative;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  min-height: 60px;
+  background-color: #fafbfc;
 }
 
-/* Última columna (Sábado) con borde derecho */
-.schedule-day-cell:nth-child(7n) {
-    border-right: 2px solid #8b0000;
+.schedule-day-cell:last-child {
+  border-right: none;
 }
 
-/* Última fila con borde inferior */
-.schedule-table-container > div:nth-last-child(-n+7) {
-    border-bottom: 2px solid #8b0000 !important;
-}
-
-/* Bordes externos del contenedor */
-.schedule-table-container {
-    border: 2px solid #8b0000;
-}
-
-/* Estilo para las celdas de clase dinámicas */
+/* CLASS BLOCK (Clase dentro del grid) */
 .class-block {
-    position: absolute;
-    width: calc(100% - 4px); /* Ancho completo menos padding/margin */
-    left: 2px;
-    z-index: 10;
-    background-color: #8b0000;
-    color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 8px 10px;
-    box-sizing: border-box;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.1s, box-shadow 0.1s;
-    overflow: hidden;
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  background: linear-gradient(135deg, #8b0000 0%, #a50000 100%);
+  color: white;
+  border-radius: 5px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(139, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
 }
 
 .class-block:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.35);
+  transform: scale(1.02);
 }
 
 .class-code {
-    font-size: 1.1rem;
-    font-weight: 700;
-    line-height: 1.2;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
 }
 
 .class-time {
-    font-size: 0.75rem;
-    font-weight: 300;
-    opacity: 0.9;
-    line-height: 1.2;
+  font-size: 0.75rem;
+  opacity: 0.95;
+  margin-bottom: 2px;
 }
 
-
-/* --- SECCIÓN DE PLANIFICACIÓN (Ajustes solicitados) --- */
-
-.planning-footer {
-    /* Eliminamos position: sticky, width: 100% y bottom: 0 */
-    background: linear-gradient(to right, #8b0000, #c40000);
-    color: white;
-    padding: 20px 40px;
-    
-    /* Centramos el footer y le damos márgenes */
-    max-width: 1200px;
-    width: calc(100% - 80px); /* 100% menos los 40px de padding */
-    margin: 40px auto 40px auto; /* 40px margen superior, automático lateral para centrar, 40px margen inferior */
-    
-    box-sizing: border-box;
-    border-radius: 12px; /* Redondeado para el efecto de tarjeta */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+.class-room {
+  font-size: 0.7rem;
+  opacity: 0.85;
+  font-style: italic;
 }
 
-.planning-content {
-    /* Quitamos el max-width porque ya lo maneja el padre */
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* INFO DE GRUPOS */
+.schedule-groups-info {
+  margin-top: 40px;
 }
 
-.planning-text h3 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2;
+.schedule-groups-info h2 {
+  color: #8b0000;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #8b0000;
+  padding-bottom: 10px;
 }
 
-.planning-text small {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 300;
-    margin-bottom: 5px;
-    color: rgba(255, 255, 255, 0.8);
+.groups-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
 }
 
-.go-button {
-    background-color: black;
-    color: white;
-    border: none;
-    padding: 10px 40px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+.group-info-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #8b0000;
+  transition: all 0.3s;
 }
 
-.go-button:hover {
-    background-color: #333;
-    transform: translateY(-1px);
+.group-info-card:hover {
+  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
-/* Media Query para responsividad en móviles */
+.group-info-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.group-info-header h3 {
+  margin: 0;
+  color: #8b0000;
+  font-size: 1.1rem;
+}
+
+.group-code-label {
+  background-color: #fff5f5;
+  color: #8b0000;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.group-course {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 8px 0;
+}
+
+.group-sessions {
+  color: #888;
+  font-size: 0.85rem;
+  margin: 8px 0 0;
+}
+
+/* ERROR & LOADING STATES */
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #8b0000;
+  padding: 60px 40px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.error-message {
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 5px;
+  padding: 30px;
+  text-align: center;
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+.error-message p {
+  color: #856404;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.error-message button {
+  background-color: #8b0000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 10px;
+  transition: all 0.3s;
+}
+
+.error-message button:hover {
+  background-color: #a50000;
+}
+
+.error-message .back-btn {
+  background-color: #6c757d;
+}
+
+.error-message .back-btn:hover {
+  background-color: #5a6268;
+}
+
+.no-data {
+  text-align: center;
+  color: #666;
+  padding: 60px 20px;
+  font-size: 1.1rem;
+}
+
+.no-data p {
+  margin: 0 0 20px 0;
+}
+
+.no-data button {
+  background-color: #8b0000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.no-data button:hover {
+  background-color: #a50000;
+}
+
+@media (max-width: 1024px) {
+  .schedule-header,
+  .schedule-grid {
+    grid-template-columns: 70px repeat(5, 1fr);
+  }
+
+  .schedule-day-header:nth-child(7),
+  .schedule-day-cell:nth-child(6n) {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
-    .schedule-page-header {
-        padding: 20px;
-    }
-    
-    .schedule-page-title {
-        font-size: 1.6rem;
-        margin-left: 10px;
-    }
-    
-    .schedule-content-wrapper {
-        padding: 0 10px;
-        margin: 20px auto;
-    }
+  .student-schedules-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
 
-    .schedule-table-container {
-        /* Permite que la tabla se desborde horizontalmente */
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap; 
-    }
+  .schedule-header,
+  .schedule-grid {
+    grid-template-columns: 60px repeat(3, 1fr);
+  }
 
-    /* Redefinimos el grid para que sea una tabla deslizable */
-    .schedule-table-container > * {
-        display: inline-grid;
-        grid-template-columns: minmax(100px, 1fr) repeat(6, 150px); /* Días con ancho fijo en móvil */
-    }
-    
-    .schedule-header-cell {
-        padding: 10px 5px;
-        font-size: 0.8rem;
-    }
-    
-    .time-label-cell {
-        font-size: 0.7rem;
-        padding: 8px 3px;
-    }
+  .schedule-day-header:nth-child(n + 5),
+  .schedule-day-cell:nth-child(6n + 5) {
+    display: none;
+  }
 
-    .class-block {
-        padding: 6px;
-    }
+  .schedule-time-label,
+  .schedule-time-cell {
+    padding: 10px 5px;
+    font-size: 0.75rem;
+  }
 
-    .class-code {
-        font-size: 1rem;
-    }
+  .class-code {
+    font-size: 0.8rem;
+  }
 
-    .class-time {
-        font-size: 0.65rem;
-    }
+  .class-time,
+  .class-room {
+    font-size: 0.65rem;
+  }
 
-    /* Ajustes móviles para el footer */
-    .planning-footer {
-        padding: 15px 20px;
-        width: calc(100% - 40px); /* 100% menos 20px de padding a cada lado */
-        margin: 20px auto 20px auto; /* Reducimos el margen vertical en móvil */
-    }
-
-    .planning-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-
-    .planning-text h3 {
-        font-size: 1.4rem;
-    }
-
-    .go-button {
-        width: 100%;
-        padding: 8px 0;
-    }
+  .groups-list {
+    grid-template-columns: 1fr;
+  }
 }
