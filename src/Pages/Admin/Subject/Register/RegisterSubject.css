@@ -1,0 +1,186 @@
+/* RegisterSubject.css */
+
+.admin-register-form {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.admin-register-form-title {
+  color: #8b0000;
+  margin: 0 0 30px 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.admin-register-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.admin-register-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #495057;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-register-input,
+.admin-register-select,
+.admin-register-textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.admin-register-input:focus,
+.admin-register-select:focus,
+.admin-register-textarea:focus {
+  outline: none;
+  border-color: #8b0000;
+  box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+.admin-register-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.admin-register-select {
+  cursor: pointer;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  grid-column: 1 / -1;
+  margin-top: 10px;
+}
+
+.admin-register-checkbox-label {
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.admin-register-checkbox {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.admin-register-success {
+  color: #155724;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #d4edda;
+  border-radius: 8px;
+  border: 1px solid #c3e6cb;
+}
+
+.admin-register-error {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #ffe6e6;
+  border-radius: 8px;
+  border: 1px solid #ffcccc;
+}
+
+.admin-register-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.admin-register-button-cancel {
+  flex: 1;
+  padding: 12px 24px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-register-button-cancel:hover {
+  background-color: #5a6268;
+}
+
+.admin-register-button-register {
+  flex: 1;
+  padding: 12px 24px;
+  background-color: #8b0000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-register-button-register:hover:not(:disabled) {
+  background-color: #a00000;
+}
+
+.admin-register-button-register:disabled {
+  cursor: not-allowed;
+  background-color: #ccc;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .admin-register-form {
+    margin: 0 15px;
+    padding: 25px;
+  }
+
+  .admin-register-form-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .admin-register-buttons {
+    flex-direction: column;
+  }
+
+  .admin-register-button-cancel,
+  .admin-register-button-register {
+    width: 100%;
+  }
+}

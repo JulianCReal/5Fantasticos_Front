@@ -1,8 +1,7 @@
 import React, { JSX, useState } from "react";
-import "../DashboardStudent/DashboardStudent.css";
-import ProfileSidebar from "../../Components/SideBarProfile/ProfileSideBar";
+import "../../DashboardStudent/DashboardStudent.css";
+import ProfileSidebar from "../../../Components/SideBarProfile/ProfileSideBar";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 interface ModuleProps {
   iconType: string;
@@ -13,99 +12,7 @@ interface ModuleProps {
 const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
   // Definiciones de íconos (se mantienen)
   const iconMap: { [key: string]: JSX.Element } = {
-    Estudiantes: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="100%"
-        height="100%"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-        <circle cx="9" cy="7" r="4"></circle>
-        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-      </svg>
-    ),
-    Profesores: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="100%"
-        height="100%"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-        <circle cx="12" cy="7" r="4"></circle>
-        <path d="M16 11l2 2 4-4"></path>
-      </svg>
-    ),
-    Decanos: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="100%"
-        height="100%"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M3 21h18"></path>
-        <path d="M5 21V7l8-4v18"></path>
-        <path d="M19 21V11l-6-4"></path>
-        <path d="M9 9h6"></path>
-        <path d="M9 13h6"></path>
-        <path d="M9 17h6"></path>
-      </svg>
-    ),
-
-    Decanaturas: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="100%"
-        height="100%"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M3 21h18"></path>
-        <path d="M5 21V7l8-4v18"></path>
-        <path d="M19 21V11l-6-4"></path>
-        <path d="M9 9h6"></path>
-        <path d="M9 13h6"></path>
-        <path d="M9 17h6"></path>
-      </svg>
-    ),
-    Materias: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="100%"
-        height="100%"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-      </svg>
-    ),
-    Grupos: (
+    "Registrar Grupo": (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
@@ -119,8 +26,78 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
       >
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
         <circle cx="9" cy="7" r="4"></circle>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        <path d="M23 11h-6"></path>
+        <path d="M20 8v6"></path>
+      </svg>
+    ),
+    "Actualizar Grupo": (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+      </svg>
+    ),
+    "Borrar Grupo": (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M17 8l5 5"></path>
+        <path d="M22 8l-5 5"></path>
+      </svg>
+    ),
+    "Buscar Grupo": (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="M21 21l-4.35-4.35"></path>
+      </svg>
+    ),
+    "Matricular Estudiante": (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <line x1="8" y1="6" x2="21" y2="6"></line>
+        <line x1="8" y1="12" x2="21" y2="12"></line>
+        <line x1="8" y1="18" x2="21" y2="18"></line>
+        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+        <line x1="3" y1="18" x2="3.01" y2="18"></line>
       </svg>
     ),
     Perfil: (
@@ -135,7 +112,7 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
         <circle cx="12" cy="7" r="4"></circle>
       </svg>
     ),
@@ -151,72 +128,60 @@ const ModuleCard: React.FC<ModuleProps> = ({ iconType, label, onClick }) => (
     style={{ cursor: "pointer" }}
   >
     <div className="student-module-icon">
-      {/* Si el tipo es 'Semáforo', usamos un ícono diferente al SVG original */}
-      {iconType === "Semáforo" ? (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="100%"
-          height="100%"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="10" y="2" width="4" height="20" rx="2"></rect>
-          <circle cx="12" cy="7" r="1.5" fill="red" stroke="none" />
-          <circle cx="12" cy="12" r="1.5" fill="yellow" stroke="none" />
-          <circle cx="12" cy="17" r="1.5" fill="green" stroke="none" />
-        </svg>
-      ) : (
-        <ModuleIconSVG type={iconType} />
-      )}
+      <ModuleIconSVG type={iconType} />
     </div>
     <span className="student-module-text">{label}</span>
   </div>
 );
 
 // --- COMPONENTE PRINCIPAL DASHBOARD ---
-const DashboardAdmin: React.FC = () => {
+const Group: React.FC = () => {
   const [showProfileSidebar, setShowProfileSidebar] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleEstudiantes = () => {
-    navigate("/admin/students");
+  const handleRegistrar = () => {
+    navigate("/admin/group/register");
   };
-  const handleProfesores = () => {
-    navigate("/admin/teacher");
+  const handleActualizar = () => {
+    navigate("/admin/group/update");
   };
-  const handleDecanos = () => {
-    navigate("/admin/dean");
+  const handleBorrar = () => {
+    navigate("/admin/group/delete");
   };
-  const handleDecanaturas = () => {
-    navigate("/admin/decanatures");
+  const handleBuscar = () => {
+    navigate("/admin/group/search");
   };
-  const handleMaterias = () => {
-    navigate("/admin/subject");
-  };
-  const handleGrupos = () => {
-    navigate("/admin/group");
+  const handleMatricular = () => {
+    navigate("/admin/group/enroll");
   };
 
   const modules: ModuleProps[] = [
     {
-      iconType: "Estudiantes",
-      label: "Estudiantes",
-      onClick: handleEstudiantes,
+      iconType: "Registrar Grupo",
+      label: "Registrar Grupo",
+      onClick: handleRegistrar,
     },
-    { iconType: "Profesores", label: "Profesores", onClick: handleProfesores },
-    { iconType: "Decanos", label: "Decanos", onClick: handleDecanos },
     {
-      iconType: "Decanaturas",
-      label: "Decanaturas",
-      onClick: handleDecanaturas,
+      iconType: "Actualizar Grupo",
+      label: "Actualizar Grupo",
+      onClick: handleActualizar,
     },
-    { iconType: "Materias", label: "Materias", onClick: handleMaterias },
-    { iconType: "Grupos", label: "Grupos", onClick: handleGrupos },
+    {
+      iconType: "Borrar Grupo",
+      label: "Borrar Grupo",
+      onClick: handleBorrar,
+    },
+    {
+      iconType: "Buscar Grupo",
+      label: "Buscar Grupo",
+      onClick: handleBuscar,
+    },
+    {
+      iconType: "Matricular Estudiante",
+      label: "Matricular Estudiante",
+      onClick: handleMatricular,
+    },
   ];
 
   return (
@@ -230,6 +195,15 @@ const DashboardAdmin: React.FC = () => {
 
         {/* Contenedor Flex para la barra de búsqueda y el ícono de perfil */}
         <div className="student-header-right-tools">
+          {/* Botón de Volver */}
+          <button
+            className="student-search-button"
+            onClick={() => navigate("/dashboardAdmin")}
+            style={{ borderRadius: "8px" }}
+          >
+            Volver
+          </button>
+
           {/* Barra de Búsqueda UNIFICADA (Botón a la izquierda) */}
           <div className="student-search-bar-container">
             <button className="student-search-button">Buscar</button>
@@ -276,4 +250,4 @@ const DashboardAdmin: React.FC = () => {
   );
 };
 
-export default DashboardAdmin;
+export default Group;
