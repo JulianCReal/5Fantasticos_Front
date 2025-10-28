@@ -13,6 +13,7 @@ import DashboardTeacher from "./Pages/DashboardTeacher/DashboardTeacher";
 import TeacherInfo from "./Pages/TeacherInfo/TeacherInfo";
 import TeacherGroups from "./Pages/TeacherGroups/TeacherGroups";
 import TeacherSchedules from "./Pages/TeacherSchedules/TeacherSchedules";
+import EvaluateRequest from "./Pages/RequestPages/EvaluateRequest/EvaluateRequest";
 
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -34,6 +35,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/groupJoinRequest" element={<RequestJoin />} />
         <Route path="/groupLeaveRequest" element={<RequestLeave />} />
         <Route path="/groupLeaveRequest" element={<RequestLeave />} />
+
+        <Route path="/dean/requests" element ={<EvaluateRequest />}/>
 
       </Routes>
     </BrowserRouter>
