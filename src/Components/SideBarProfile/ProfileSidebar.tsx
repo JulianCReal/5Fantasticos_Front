@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ProfileSidebar.css";
 import { useNavigate } from "react-router-dom";
 
+interface UserProfile {
+  id?: string;
+  name?: string;
+  email?: string;
+  department?: string;
+}
 
 interface ProfileSidebarProps {
   open: boolean;
@@ -9,10 +15,19 @@ interface ProfileSidebarProps {
 }
 
 const ProfileSidebar: React.FC<ProfileSidebarProps> = ({ open, onClose }) => {
-    const navigate = useNavigate();
-    const handleLogout = () => {
-        navigate("/");
-    };
+  const navigate = useNavigate();
+  const [userProfile, setUserProfile] = useState<UserProfile>({});
+
+  useEffect(() => {
+    const profileData = sessionStorage.getItem('userProfile');
+    if (profileData) {
+      setUserProfile(JSON.parse(profileData));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    navigate("/");
+  };
 
   return (
     <div className={`profile-sidebar-overlay${open ? " open" : ""}`}>
@@ -21,8 +36,17 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({ open, onClose }) => {
           <span>&#10005;</span>
         </button>
         <div className="profile-options">
-          <div className="profile-option">Configuración</div>
-          <div className="profile-option">Mi historial de clases</div>
+          <div className="profile-info">
+            <div className="profile-field">
+              <strong>ID:</strong> {userProfile.id || 'N/A'}
+            </div>
+            <div className="profile-field">
+              <strong>Nombre:</strong> {userProfile.name || 'N/A'}
+            </div>
+            <div className="profile-field">
+              <strong>Departamento:</strong> {userProfile.department || 'N/A'}
+            </div>
+          </div>
         </div>
         <div className="profile-logout" onClick={handleLogout} style={{ cursor: "pointer" }}>
           <svg width="28" height="28" fill="none" stroke="#fff" strokeWidth="2">
