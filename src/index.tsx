@@ -17,6 +17,7 @@ import TeacherSchedules from "./Pages/TeacherSchedules/TeacherSchedules";
 import TeacherStudents from "./Pages/TeacherStudents/TeacherStudents";
 import AcademicTrafficLightApp from "./Pages/AcademicTrafficLight/AcademicTrafficLight";
 import EvaluateRequest from "./Pages/RequestPages/EvaluateRequest/EvaluateRequest";
+import DeanStudents from "./Pages/DashboardDean/DashboardsForDean/DeanStudents";
 
 import DashboardAdmin from "./Pages/DashboardAdmin/DashboardAdmin";
 import Students from "./Pages/Admin/Students/Students";
@@ -72,6 +73,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/groupLeaveRequest" element={<RequestLeave />} />
         <Route path="/academicTrafficLight" element={<AcademicTrafficLightApp />} />
         <Route path="/dean/requests" element={<EvaluateRequest />} />
+        <Route path="/dean/analytics" element={<DeanStudents />} />
 
         <Route path="/dashboardAdmin" element={<DashboardAdmin />} />
         <Route path="/admin/students" element={<Students />} />

@@ -38,36 +38,12 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
                 <path d="M16 17H8"></path>
             </svg>
         ),
-        "Planificación": ( // Gestión de horarios y recursos
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-                <path d="M12 16h.01"></path>
-            </svg>
-        ),
-        "Docentes": ( // Gestión del personal docente
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-        ),
-        "Admisión": ( // Revisión de procesos de admisión o transferencia
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 19V5"></path>
-                <path d="M5 12l7-7 7 7"></path>
-                <path d="M19 19H5"></path>
-            </svg>
-        ),
         "Perfil": (
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
             </svg>
-        ),
+        )
     };
     return iconMap[type] || null;
 };
@@ -105,17 +81,11 @@ const DashboardDean: React.FC = () => {
     const handlePanel = () => { navigate("/dean/analytics"); };
     const handleRequests = () => { navigate("/dean/requests"); };
     const handleReports = () => { navigate("/dean/reports"); };
-    const handlePlanning = () => { navigate("/dean/planning"); };
-    const handleFaculty = () => { navigate("/dean/faculty-management"); };
-    const handleAdmission = () => { navigate("/dean/admission-review"); };
 
     const modules: ModuleProps[] = [
-        { iconType: "Panel", label: "Panel de Rendimiento", onClick: handlePanel },
+        { iconType: "Panel", label: "Estudiantes de Decanatura", onClick: handlePanel },
         { iconType: "Solicitudes", label: "Gestión de Solicitudes", onClick: handleRequests },
         { iconType: "Reportes", label: "Generación de Reportes", onClick: handleReports },
-        { iconType: "Planificación", label: "Planificación Académica", onClick: handlePlanning },
-        { iconType: "Docentes", label: "Gestión del Personal", onClick: handleFaculty },
-        { iconType: "Admisión", label: "Revisión de Admisión", onClick: handleAdmission },
     ];
 
     return (
