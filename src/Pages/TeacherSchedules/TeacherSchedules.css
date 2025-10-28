@@ -44,11 +44,105 @@
 }
 
 .teacher-schedules-content {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
+}
+
+/* VISTA POR DÍA */
+.schedule-by-day {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.day-section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  border-top: 4px solid #8b0000;
+}
+
+.day-title {
+  color: #8b0000;
+  font-size: 1.5rem;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.sessions-list {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 15px;
+}
+
+.session-card {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #8b0000;
+  border-radius: 5px;
+  padding: 15px;
+  transition: all 0.3s;
+}
+
+.session-card:hover {
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.session-time {
+  font-weight: 700;
+  color: #8b0000;
+  font-size: 1.1rem;
+}
+
+.session-group {
+  background-color: #8b0000;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.session-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.info-row .label {
+  font-weight: 600;
+  color: #8b0000;
+}
+
+.info-row .value {
+  color: #666;
+  text-align: right;
+}
+
+.no-sessions {
+  text-align: center;
+  color: #999;
+  padding: 20px;
+  font-style: italic;
 }
 
 /* SCHEDULE GRID STYLES */
