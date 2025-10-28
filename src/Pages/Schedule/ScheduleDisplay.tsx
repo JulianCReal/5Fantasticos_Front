@@ -83,30 +83,28 @@ const Horario: React.FC<HorarioProps> = ({ onBack = () => {} }) => {
     
     // Función para transformar los datos del backend al formato esperado
     const transformBackendData = (backendData: any): ScheduleItem[] => {
-        if (!backendData || !backendData.classes || !Array.isArray(backendData.classes)) {
-            return initialSchedule;
-        }
-        
-        const convertTime = (time: string) => {
-            if (!time) return "00:00";
-            
-            // Si ya viene en formato HH:MM
-            if (/^\d{1,2}:\d{2}$/.test(time)) {
-                const [hours, minutes] = time.split(':').map(Number);
-                return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-            }
-            
-            return time;
-        };
-
-        return backendData.classes.map((item: any, index: number) => ({
-            id: index,
-            code: item.subjectCode || 'N/A',
-            timeStart: convertTime(item.startTime),
-            timeEnd: convertTime(item.endTime),
-            day: item.day as 'Lunes' | 'Martes' | 'Miercoles' | 'Jueves' | 'Viernes' | 'Sabado'
-        }));
+    if (!backendData || !backendData.classes || !Array.isArray(backendData.classes)) {
+        return initialSchedule;
+    }
+    
+    const convertTime = (time: string) => {
+        if (!time) return "00:00";
+        let [hour, min] = time.split(":").map(Number);
+        if (hour < 7) hour += 12;
+        const result = `${hour.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`;
+        console.log("ConvertTime original:", time, "->", result);
+        return result;
     };
+
+    return backendData.classes.map((item: any, index: number) => ({
+        id: index,
+        code: item.subjectCode || 'N/A',
+        timeStart: convertTime(item.startTime),
+        timeEnd: convertTime(item.endTime),
+        day: item.day as 'Lunes' | 'Martes' | 'Miercoles' | 'Jueves' | 'Viernes' | 'Sabado'
+    }));
+};
+
     
     // Usar los datos del backend si están disponibles, sino usar datos de ejemplo
     const [schedule, setSchedule] = React.useState<ScheduleItem[]>(
@@ -195,6 +193,12 @@ const Horario: React.FC<HorarioProps> = ({ onBack = () => {} }) => {
     
     const [showProfileSidebar, setShowProfileSidebar] = useState(false);
 
+    const timeToMinutes = (time: string) => {
+        const [h, m] = time.split(":").map(Number);
+        return h * 60 + m;
+    };
+
+
     return (
         <div className="schedule-page-container">
             {/* Header de la página de horario */}
@@ -215,63 +219,45 @@ const Horario: React.FC<HorarioProps> = ({ onBack = () => {} }) => {
 
             <div className="schedule-content-wrapper">
                 <div className="schedule-table-container">
-                    {/* Fila de Cabecera (Días de la semana) */}
-                    <div className="schedule-header-cell">{/* Esquina vacía */}</div>
+                    {/* Fila de cabecera: esquina vacía + días */}
+                    <div className="schedule-header-cell"></div>
                     {days.map(day => (
                         <div key={day} className="schedule-header-cell">{day}</div>
                     ))}
 
-                    {/* Contenido de la Tabla (Horas y Clases) */}
-                    {timeSlots.flatMap((slot, slotIndex) => {
-                        // Creamos una franja de fila para cada slot de tiempo
-                        const rowCells = [
-                            // 1. Etiqueta de la hora (Fila 1, Columna 1)
-                            <div 
-                                key={`time-${slotIndex}`} 
-                                className="time-label-cell"
-                            >
-                                {slot.label}
-                            </div>,
-                            
-                            // 2. Celdas de los días (Fila 1, Columnas 2 a 7)
-                            ...days.map((day, dayIndex) => {
-                                // Buscamos clases que caigan en esta celda
-                                const classesInSlot = schedule.filter(item => 
-                                    item.day === day && 
-                                    item.timeStart < slot.end && 
-                                    item.timeEnd > slot.start
-                                );
-                                
-                                // Filtrar las clases que empiezan O terminan dentro de esta franja de tiempo
-                                const classesForDay = schedule.filter(item => item.day === day);
-
-                                return (
-                                    <div 
-                                        key={`day-${slotIndex}-${dayIndex}`} 
-                                        className="schedule-day-cell"
-                                    >
-                                        {/* Renderizamos solo las clases que empiezan en esta franja */}
-                                        {classesForDay
-                                            .filter(item => {
-                                                return item.timeStart === slot.start;
-                                            })
-                                            .map(item => (
-                                                <div 
-                                                    key={item.id}
-                                                    className="class-block"
-                                                    style={getClassStyle(item)}
-                                                    onClick={() => console.log(`Clic en clase: ${item.code}`)}
-                                                >
-                                                    <span className="class-code">{item.code}</span>
-                                                    <span className="class-time">{`${item.timeStart} - ${item.timeEnd}`}</span>
-                                                </div>
-                                            ))}
-                                    </div>
-                                );
-                            })
-                        ];
-                        return rowCells;
-                    })}
+                    {/* Filas de horas y celdas por día */}
+                    {timeSlots.map((slot, slotIndex) => (
+                        <React.Fragment key={slotIndex}>
+                            {/* Etiqueta de la franja horaria en la primera columna */}
+                            <div className="time-label-cell">{slot.label}</div>
+                            {days.map((day, dayIndex) => (
+                                <div key={`${slotIndex}-${dayIndex}`} className="schedule-day-cell">
+                                    {schedule
+                                        .filter(item => {
+                                            const itemStart = timeToMinutes(item.timeStart);
+                                            const slotStart = timeToMinutes(slot.start);
+                                            const slotEnd = timeToMinutes(slot.end);
+                                            // Si la clase comienza dentro del rango del slot
+                                            return (
+                                            day.localeCompare(item.day, "es", { sensitivity: "base" }) === 0 &&
+                                            itemStart >= slotStart && itemStart < slotEnd
+                                            );
+                                        })
+                                        .map(item => (
+                                            <div
+                                                key={item.id}
+                                                className="class-block"
+                                                style={getClassStyle(item)}
+                                            >
+                                                <span className="class-code">{item.code}</span>
+                                                <span className="class-time">{`${item.timeStart} - ${item.timeEnd}`}</span>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            ))}
+                        </React.Fragment>
+                    ))}
                 </div>
             </div>
             

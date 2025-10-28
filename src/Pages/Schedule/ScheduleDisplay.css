@@ -100,14 +100,20 @@ body, html, #root {
 
 
 .schedule-table-container {
-    display: grid;
-    grid-template-columns: 140px repeat(6, 1fr);
-    grid-template-rows: 70px repeat(8, 90px);
-    background-color: white;
-    border-radius: 8px;
-    min-width: 900px;
-    border: 2px solid #8b0000;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 140px repeat(6, 1fr);
+  background-color: white;
+  border-radius: 8px;
+  border: 2px solid #8b0000;
+  min-width: 900px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Columna de las horas */
+.time-label-column {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Celdas del header */
@@ -125,14 +131,20 @@ body, html, #root {
 
 /* Celdas de horas */
 .time-label-cell {
-    background-color: #f8f8f8;
-    border-right: 2px solid #8b0000;
-    border-bottom: 1px solid #ddd;
-    font-size: 0.9rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #ddd;
+  background-color: #f8f8f8;
+  font-weight: 600;
+}
+.schedule-day-column {
+  position: relative;
+  border-left: 1px solid #ddd;
+  border-bottom: 2px solid #8b0000;
+  background-color: #fafafa;
+  height: calc(8 * 90px); /* 8 franjas de 90px */
 }
 
 /* Celdas del horario */
@@ -155,17 +167,15 @@ body, html, #root {
 
 /* BLOQUES DE CLASE */
 .class-block {
-    position: absolute;
-    width: calc(100% - 4px);
-    left: 2px;
-    padding: 8px 10px;
-    background-color: #8b0000;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.1s, box-shadow 0.1s;
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  background-color: #8b0000;
+  color: white;
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  text-align: center;
 }
 
 .class-block:hover {
