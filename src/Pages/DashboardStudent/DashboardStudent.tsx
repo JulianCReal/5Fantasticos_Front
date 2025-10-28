@@ -114,7 +114,7 @@ const DashboardStudent: React.FC = () => {
         }
     }
     const handleSemaforo = ()=>{
-        navigate("/")
+        navigate("/academicTrafficLight")
     }
     
     const handleRegistros = ()=>{

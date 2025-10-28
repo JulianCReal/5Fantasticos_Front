@@ -14,6 +14,8 @@ import DashboardTeacher from "./Pages/DashboardTeacher/DashboardTeacher";
 import TeacherInfo from "./Pages/TeacherInfo/TeacherInfo";
 import TeacherGroups from "./Pages/TeacherGroups/TeacherGroups";
 import TeacherSchedules from "./Pages/TeacherSchedules/TeacherSchedules";
+import AcademicTrafficLightApp from "./Pages/AcademicTrafficLight/AcademicTrafficLight";
+
 import DashboardAdmin from "./Pages/DashboardAdmin/DashboardAdmin";
 import Students from "./Pages/Admin/Students/Students";
 import RegisterStudent from "./Pages/Admin/Students/Register/RegisterStudent";
@@ -65,6 +67,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/groupChangeRequest" element={<RequestChange />} />
         <Route path="/groupJoinRequest" element={<RequestJoin />} />
         <Route path="/groupLeaveRequest" element={<RequestLeave />} />
+        <Route path="/groupLeaveRequest" element={<RequestLeave />} />
+        <Route path="/academicTrafficLight" element={<AcademicTrafficLightApp />} />
+
+
         <Route path="/dashboardAdmin" element={<DashboardAdmin />} />
         <Route path="/admin/students" element={<Students />} />
         <Route path="/admin/students/register" element={<RegisterStudent />} />
