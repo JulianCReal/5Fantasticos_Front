@@ -13,6 +13,7 @@ import DashboardTeacher from "./Pages/DashboardTeacher/DashboardTeacher";
 import TeacherInfo from "./Pages/TeacherInfo/TeacherInfo";
 import TeacherGroups from "./Pages/TeacherGroups/TeacherGroups";
 import TeacherSchedules from "./Pages/TeacherSchedules/TeacherSchedules";
+import TeacherStudents from "./Pages/TeacherStudents/TeacherStudents";
 
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/teacherInfo" element={<TeacherInfo />} />
         <Route path="/teacherGroups" element={<TeacherGroups />} />
         <Route path="/teacherSchedules" element={<TeacherSchedules />} />
+        <Route path="/teacherStudents" element={<TeacherStudents />} />
 
         <Route path="/requestDashboard" element={<RequestDashboard />} />
         <Route path="/scheduleDisplay" element={<ScheduleDisplay />} />
