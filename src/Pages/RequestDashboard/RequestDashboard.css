@@ -1,0 +1,245 @@
+/* Reseteo básico y fuente principal */
+body, html, #root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f0f2f5;
+    overflow: hidden; 
+}
+
+/* --- ESTILOS DE LA PÁGINA DE SOLICITUDES (RequestDashboard) --- */
+   
+.request-page-container {
+    width: 100%;
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f2f5;
+    overflow-y: auto; 
+}
+
+.request-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 40px;
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+    position: relative;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8b0000;
+    transition: transform 0.2s;
+}
+
+.back-button:hover {
+    transform: translateX(-5px);
+}
+
+.back-icon-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.request-page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #8b0000;
+    flex-grow: 1; 
+    text-align: left;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.profile-icon-button {
+    background-color: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.profile-icon-button:hover {
+    border-color: #8b0000;
+    transform: scale(1.05);
+}
+
+.profile-icon-svg {
+    color: #8b0000; 
+    width: 28px;
+    height: 28px;
+}
+
+.request-page-content-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 40px 80px 40px; 
+}
+
+.request-section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #8b0000;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.request-grid {
+    display: flex;
+    justify-content: space-around;
+    align-items: center; 
+    gap: 50px;
+}
+
+.request-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.request-image-container {
+    flex-shrink: 0;
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.request-center-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.request-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    padding: 10px; 
+    border-radius: 8px;
+}
+
+.request-item:hover {
+     background-color: #ffe0e0;
+     transform: translateY(-2px);
+}
+
+.request-item-left {
+    flex-direction: row;
+}
+
+.request-item-right {
+    flex-direction: row-reverse; 
+    text-align: right;
+}
+
+.request-item-right .request-text-content {
+    align-items: flex-end; 
+}
+
+.request-icon-container {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    min-height: 70px;
+    border-radius: 50%;
+    background-color: #8b0000;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
+}
+
+.request-icon-container svg {
+    width: 40px;
+    height: 40px;
+    stroke: white; 
+}
+
+.request-text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.request-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Media Query para responsividad en móviles */
+@media (max-width: 768px) {
+    .request-page-header {
+        padding: 20px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    
+    .request-page-title {
+        font-size: 1.8rem;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .request-page-content-wrapper {
+        padding: 0 20px 50px 20px;
+    }
+    
+    .request-grid {
+        flex-direction: column; 
+        gap: 40px;
+    }
+    
+    .request-image-container {
+        width: 100%;
+        height: 180px;
+        order: 3; 
+    }
+
+    .request-column {
+        width: 100%;
+    }
+
+    .request-item {
+        flex-direction: row !important; 
+        text-align: left !important;
+    }
+    
+    .request-item-right .request-text-content {
+        align-items: flex-start !important; 
+    }
+    
+    .profile-icon-button {
+        margin-left: auto;
+    }
+}

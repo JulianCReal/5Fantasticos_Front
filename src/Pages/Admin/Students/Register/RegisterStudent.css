@@ -1,0 +1,102 @@
+/* RegisterStudent.css */
+
+.admin-register-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-register-title-section {
+  grid-column: span 2;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.admin-register-title {
+  color: #8b0000;
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.admin-register-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.admin-register-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.admin-register-success {
+  grid-column: span 2;
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.admin-register-error {
+  grid-column: span 2;
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.admin-register-buttons {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.admin-register-button-volver {
+  padding: 10px 20px;
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.admin-register-button-volver:hover {
+  background-color: #ddd;
+}
+
+.admin-register-button-registrar {
+  padding: 10px 20px;
+  background-color: #8b0000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.admin-register-button-registrar:hover {
+  background-color: #a50000;
+}
+
+.admin-register-button-registrar:disabled {
+  cursor: not-allowed;
+  background-color: #ccc;
+}

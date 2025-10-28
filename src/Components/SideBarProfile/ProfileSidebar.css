@@ -1,0 +1,85 @@
+.profile-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(70, 0, 0, 0.14);
+  z-index: 99;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.profile-sidebar-overlay.open {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.profile-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0; /* Aquí ya está a la izquierda */
+  width: 300px;
+  height: 100vh;
+  max-height: 100vh;
+  background: #912e26;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-family: 'Montserrat', Arial, sans-serif;
+  box-shadow: 2px 0 12px #a1352c44;
+  padding: 24px 0 0 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  margin-left: 18px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.profile-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 52px;
+  gap: 32px;
+  padding: 0 24px;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.profile-field {
+  font-size: 1rem;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-field strong {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+
+.profile-logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.13rem;
+  margin-left: 32px;
+  font-weight: 400;
+  margin-top: auto;
+  margin-bottom: 42px;
+  /* Así siempre queda al borde inferior pero dentro del sidebar fijo */
+}
