@@ -3,15 +3,23 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./TeacherGroups.css";
 
+interface Session {
+  day: string;
+  startTime: string;
+  endTime: string;
+  classroom: string;
+}
+
 interface Group {
   id: string;
-  groupCode: string;
-  name: string;
-  course: string;
-  semester: string;
-  year: number;
-  schedule?: string;
-  studentsCount?: number;
+  subjectId: string;
+  number: number;
+  capacity: number;
+  active: boolean;
+  teacherId: string;
+  teacherName: string;
+  studentIds: string[];
+  sessions: Session[];
 }
 
 const TeacherGroups: React.FC = () => {
@@ -100,33 +108,31 @@ const TeacherGroups: React.FC = () => {
             {groups.map((group) => (
               <div key={group.id} className="group-card">
                 <div className="group-header">
-                  <h3>{group.name}</h3>
-                  <span className="group-code">{group.groupCode}</span>
+                  <h3>{group.subjectId} - Grupo {group.number}</h3>
+                  <span className="group-code">{group.id}</span>
                 </div>
 
                 <div className="group-info">
                   <div className="info-row">
-                    <span className="label">Curso:</span>
-                    <span className="value">{group.course}</span>
+                    <span className="label">Asignatura:</span>
+                    <span className="value">{group.subjectId}</span>
                   </div>
                   <div className="info-row">
-                    <span className="label">Semestre:</span>
-                    <span className="value">{group.semester}</span>
+                    <span className="label">Capacidad:</span>
+                    <span className="value">{group.capacity} estudiantes</span>
                   </div>
                   <div className="info-row">
-                    <span className="label">Año:</span>
-                    <span className="value">{group.year}</span>
+                    <span className="label">Estudiantes:</span>
+                    <span className="value">{group.studentIds.length} inscritos</span>
                   </div>
-                  {group.studentsCount && (
+                  <div className="info-row">
+                    <span className="label">Estado:</span>
+                    <span className="value">{group.active ? "Activo" : "Inactivo"}</span>
+                  </div>
+                  {group.sessions && group.sessions.length > 0 && (
                     <div className="info-row">
-                      <span className="label">Estudiantes:</span>
-                      <span className="value">{group.studentsCount}</span>
-                    </div>
-                  )}
-                  {group.schedule && (
-                    <div className="info-row">
-                      <span className="label">Horario:</span>
-                      <span className="value">{group.schedule}</span>
+                      <span className="label">Sesiones:</span>
+                      <span className="value">{group.sessions.length} por semana</span>
                     </div>
                   )}
                 </div>
