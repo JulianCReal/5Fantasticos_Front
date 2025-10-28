@@ -9,23 +9,29 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [popup, setPopup] = useState<{ title: string; message: string } | null>(null);
+  const [popup, setPopup] = useState<{ title: string; message: string } | null>(
+    null
+  );
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
-      const response = await axios.post('http://localhost:8083/auth/login', {
+      const response = await axios.post("http://localhost:8083/auth/login", {
         email,
-        password
+        password,
       });
-      
+
       console.log("Response completo:", response.data);
-      
+
       // Validar estructura de respuesta
-      if (!response.data.data || !response.data.data.token || !response.data.data.role) {
+      if (
+        !response.data.data ||
+        !response.data.data.token ||
+        !response.data.data.role
+      ) {
         console.error("Estructura de respuesta inválida:", response.data);
         setPopup({
           title: "Error de respuesta del servidor",
@@ -33,45 +39,51 @@ const Login: React.FC = () => {
         });
         return;
       }
-      
-      sessionStorage.setItem('token', response.data.data.token);
-      sessionStorage.setItem('userProfile', JSON.stringify(response.data.data.profile || {}));
-      sessionStorage.setItem('userRole', response.data.data.role);
-      
+
+      sessionStorage.setItem("token", response.data.data.token);
+      sessionStorage.setItem(
+        "userProfile",
+        JSON.stringify(response.data.data.profile || {})
+      );
+      sessionStorage.setItem("userRole", response.data.data.role);
+
       console.log("Rol recibido del backend:", response.data.data.role);
       console.log("Tipo de rol:", typeof response.data.data.role);
-      console.log("Rol guardado en sessionStorage:", sessionStorage.getItem('userRole'));
-      
+      console.log(
+        "Rol guardado en sessionStorage:",
+        sessionStorage.getItem("userRole")
+      );
+
       const userRole = response.data.data.role.toString().toUpperCase().trim();
-      
+
       console.log("Evaluando rol:", userRole);
       console.log("Comparaciones:");
-      console.log("- Es STUDENT?", userRole === 'STUDENT');
-      console.log("- Es DEAN?", userRole === 'DEAN');
-      console.log("- Es TEACHER?", userRole === 'TEACHER');
-      console.log("- Es PROFESSOR?", userRole === 'PROFESSOR');
-      console.log("- Es ADMIN?", userRole === 'ADMIN');
-      
+      console.log("- Es STUDENT?", userRole === "STUDENT");
+      console.log("- Es DEAN?", userRole === "DEAN");
+      console.log("- Es TEACHER?", userRole === "TEACHER");
+      console.log("- Es PROFESSOR?", userRole === "PROFESSOR");
+      console.log("- Es ADMIN?", userRole === "ADMIN");
+
       switch (userRole) {
-        case 'STUDENT':
+        case "STUDENT":
           console.log("Navegando a dashboardStudent");
           navigate("/dashboardStudent");
           break;
-        case 'DEAN':
+        case "DEAN":
           console.log("Navegando a dashboardDean");
           navigate("/dashboardDean");
           break;
-        case 'TEACHER':
+        case "TEACHER":
           console.log("Navegando a dashboardTeacher");
           navigate("/dashboardTeacher");
           break;
-        case 'PROFESSOR':
+        case "PROFESSOR":
           console.log("Navegando a dashboardTeacher (PROFESSOR alias)");
           navigate("/dashboardTeacher");
           break;
-        case 'ADMIN':
+        case "ADMIN":
           console.log("Navegando a admin (home)");
-          navigate("/");
+          navigate("/dashboardAdmin");
           break;
         default:
           console.warn("Rol desconocido:", userRole);
@@ -81,11 +93,11 @@ const Login: React.FC = () => {
           });
           break;
       }
-
     } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
         const status = error.response.status;
-        const message = error.response.data?.message || "Ocurrió un error al iniciar sesión.";
+        const message =
+          error.response.data?.message || "Ocurrió un error al iniciar sesión.";
 
         if (status === 404) {
           // Usuario no encontrado
@@ -128,11 +140,7 @@ const Login: React.FC = () => {
           <div className="login-left-content">
             <div className="login-logo">
               {/* Placeholder para el logo gráfico */}
-                <img 
-                  src="/logou.jpg" 
-                  alt="Logo" 
-                  className="logo-image"
-                />
+              <img src="/logou.jpg" alt="Logo" className="logo-image" />
             </div>
           </div>
         </div>
@@ -168,7 +176,13 @@ const Login: React.FC = () => {
           </form>
         </div>
       </div>
-      {popup && (<Popup title={popup.title} message={popup.message} onClose={() => setPopup(null)}/>)}
+      {popup && (
+        <Popup
+          title={popup.title}
+          message={popup.message}
+          onClose={() => setPopup(null)}
+        />
+      )}
     </div>
   );
 };
