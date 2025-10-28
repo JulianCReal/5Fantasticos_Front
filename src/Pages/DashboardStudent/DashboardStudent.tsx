@@ -46,15 +46,7 @@ const ModuleIconSVG: React.FC<{ type: string }> = ({ type }) => {
                 <path d="M10 18h4"></path>
             </svg>
         ),
-        "Calificaciones": (
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <path d="M8 12h8"></path>
-                <path d="M8 16h8"></path>
-                <path d="M8 20h8"></path>
-            </svg>
-        ),
+        
         "Registros Academicos": (
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
@@ -124,9 +116,7 @@ const DashboardStudent: React.FC = () => {
     const handleSemaforo = ()=>{
         navigate("/")
     }
-    const handleCalificaciones = ()=>{
-        navigate("/")
-    }
+    
     const handleRegistros = ()=>{
         navigate("/")
     }
@@ -135,8 +125,7 @@ const DashboardStudent: React.FC = () => {
         { iconType: "Mi horario", label: "Mi horario", onClick: handleHorario },
         { iconType: "Semáforo", label: "Semáforo", onClick: handleSemaforo },
         { iconType: "Solicitudes", label: "Solicitudes", onClick: handleRequestDashboard },
-        { iconType: "Calificaciones", label: "Calificaciones", onClick: handleCalificaciones },
-        { iconType: "Registros Academicos", label: "Registros Academicos", onClick: handleRegistros },
+        { iconType: "Registros Academicos", label: "Registros Academicos", onClick: handleRegistros }
     ];
 
     return (
