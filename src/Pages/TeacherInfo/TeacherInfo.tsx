@@ -5,12 +5,14 @@ import "./TeacherInfo.css";
 
 interface TeacherData {
   id: string;
-  firstName: string;
+  name: string;
   lastName: string;
-  email: string;
+  document?: string;
+  email?: string;
   phone?: string;
   department?: string;
   specialization?: string;
+  assignedSubjects?: any;
 }
 
 const TeacherInfo: React.FC = () => {
@@ -36,7 +38,14 @@ const TeacherInfo: React.FC = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        setTeacherData(response.data.data || response.data);
+        console.log("Respuesta completa del API:", response.data);
+        console.log("Tipo de respuesta:", typeof response.data);
+        
+        // La respuesta viene en response.data.data
+        const data = response.data.data || response.data;
+        
+        console.log("Datos finales a mostrar:", data);
+        setTeacherData(data);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching teacher info:", err);
@@ -88,12 +97,22 @@ const TeacherInfo: React.FC = () => {
               <div className="info-grid">
                 <div className="info-item">
                   <label>Nombre:</label>
-                  <p>{teacherData.firstName} {teacherData.lastName}</p>
+                  <p>{teacherData.name} {teacherData.lastName}</p>
                 </div>
                 <div className="info-item">
-                  <label>Email:</label>
-                  <p>{teacherData.email}</p>
+                  <label>Cédula:</label>
+                  <p>{teacherData.document || "N/A"}</p>
                 </div>
+                <div className="info-item">
+                  <label>ID:</label>
+                  <p>{teacherData.id}</p>
+                </div>
+                {teacherData.email && (
+                  <div className="info-item">
+                    <label>Email:</label>
+                    <p>{teacherData.email}</p>
+                  </div>
+                )}
                 {teacherData.phone && (
                   <div className="info-item">
                     <label>Teléfono:</label>
