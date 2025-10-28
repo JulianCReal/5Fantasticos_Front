@@ -13,10 +13,6 @@ import DashboardTeacher from "./Pages/DashboardTeacher/DashboardTeacher";
 import TeacherInfo from "./Pages/TeacherInfo/TeacherInfo";
 import TeacherGroups from "./Pages/TeacherGroups/TeacherGroups";
 import TeacherSchedules from "./Pages/TeacherSchedules/TeacherSchedules";
-
-import EvaluateRequest from "./Pages/RequestPages/EvaluateRequest/EvaluateRequest";
-
-
 import DashboardAdmin from "./Pages/DashboardAdmin/DashboardAdmin";
 import Students from "./Pages/Admin/Students/Students";
 import RegisterStudent from "./Pages/Admin/Students/Register/RegisterStudent";
@@ -37,7 +33,6 @@ import DeleteTeacher from "./Pages/Admin/Teacher/Delete/DeleteTeacher";
 import UpdateTeacher from "./Pages/Admin/Teacher/Update/UpdateTeacher";
 import ListTeacher from "./Pages/Admin/Teacher/List/ListTeacher";
 
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -57,11 +52,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/groupJoinRequest" element={<RequestJoin />} />
         <Route path="/groupLeaveRequest" element={<RequestLeave />} />
         <Route path="/groupLeaveRequest" element={<RequestLeave />} />
-
-
-        <Route path="/dean/requests" element ={<EvaluateRequest />}/>
-
-
         <Route path="/dashboardAdmin" element={<DashboardAdmin />} />
         <Route path="/admin/students" element={<Students />} />
         <Route path="/admin/students/register" element={<RegisterStudent />} />
@@ -81,7 +71,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/admin/teacher/delete" element={<DeleteTeacher />} />
         <Route path="/admin/teacher/update" element={<UpdateTeacher />} />
         <Route path="/admin/teacher/list" element={<ListTeacher />} />
-
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

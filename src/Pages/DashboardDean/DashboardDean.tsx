@@ -96,7 +96,14 @@ const DashboardDean: React.FC = () => {
     // Simulación de carga de datos iniciales para el Panel de Control
     React.useEffect(() => {
         const loadInitialData = async () => {
+            try {
+                // Simulación: Cargar datos clave del rendimiento estudiantil
+                const response = await axios.get("http://localhost:8083/api/dean/student-performance");
+                setStudentPerformance(response.data);
+            } catch (error) {
+                console.error("Error cargando datos del decano:", error);
                 setStudentPerformance({ average: 3.5, pendingActions: 3 }); // Fallback data
+            }
         };
         loadInitialData();
     }, []);
